@@ -1,0 +1,3 @@
+export var mongoConfig = {
+  url: "http://localhost:3000/api/",
+};

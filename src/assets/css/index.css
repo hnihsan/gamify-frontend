@@ -1,0 +1,36 @@
+/* Mobile screen */
+@media (max-width: 992px) {
+  .only-desktop {
+    display: none !important;
+  }
+}
+
+/* Desktop screen */
+@media (min-width: 993px) {
+
+}
+
+/* Custom Styles */
+.vh-10 {
+  height: 10vh !important;
+}
+
+.vh-5 {
+  height: 5vh !important;
+}
+
+.vh-4 {
+  height: 4vh !important;
+}
+
+.vh-3 {
+  height: 3vh !important;
+}
+
+.vh-2 {
+  height: 2vh !important;
+}
+
+.header {
+  z-index: 10;
+}
