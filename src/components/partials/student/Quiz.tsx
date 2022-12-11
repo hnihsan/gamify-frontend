@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Cookies from "js-cookie";
 // @ts-ignore
 import achv_1 from "~/src/assets/media/achievements/badge1.png";
 import { shuffleArray } from "../../../lib/Tools";
 import { Quiz } from "../../../models/Quiz";
+import { SubmitUserAttempt_VM } from "../../../models/UserAttempt";
 import { getChallenges } from "../../../services/GetChallenges";
 import { getQuizzes } from "../../../services/GetQuizzes";
 import Loading from "../shared/LoadingComponent";
+import { getUser } from "../../../services/GetUser";
+import { submitUserAttempt } from "../../../services/SubmitUserAttempt";
 
 class AnswerStatus {
   quizId: string;
@@ -18,13 +22,14 @@ class AnswerStatus {
 }
 
 const Quizzes = () => {
-  const { challengeId } = useParams();
+  const { challengeId, subjectId } = useParams();
   const [activeQuiz, setActiveQuiz] = useState<string>("");
   const [quizzes, setQuizzes] = useState<Array<Quiz>>([]);
   const [answers, setAnswers] = useState<Array<AnswerStatus>>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const SubmitQuiz = () => {
+  const getUserId = () => Cookies.get("userId");
+  const SubmitQuiz = async () => {
     var correctAnswerCount = 0;
     var totalQuiz = quizzes.length;
     answers.forEach((ans) => {
@@ -33,6 +38,16 @@ const Quizzes = () => {
     });
 
     console.log("Score: " + correctAnswerCount + "/" + totalQuiz);
+
+    var score = (correctAnswerCount / totalQuiz) * 100;
+    var vm = new SubmitUserAttempt_VM({
+      challengeId: challengeId,
+      subjectId: subjectId,
+      userId: Cookies.get("userId"),
+      score: score,
+      duration: 245,
+    });
+    var res = await submitUserAttempt(vm);
   };
   const onAnswerChanged = (e) => {
     let isChecked = e.target.checked;

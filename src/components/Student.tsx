@@ -5,6 +5,7 @@ import StudentSubjects from "./partials/student/Subjects";
 import ModalEnrollSubject from "./partials/student/modals/EnrollSubject";
 import SubjectDetail from "./partials/student/SubjectDetail";
 import Quizzes from "./partials/student/Quiz";
+import Cookies from "js-cookie";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { User } from "../models/User";
 import { getUser } from "../services/GetUser";
@@ -18,6 +19,7 @@ const Student: React.FC = () => {
     const fetchUser = async () => {
       var res = await getUser("helmi.n.ihsan@gmail.com");
       console.log(res);
+      Cookies.set("userId", res._id);
       setUser(res);
     };
 
@@ -54,7 +56,10 @@ const Student: React.FC = () => {
               ) : (
                 <></>
               )}
-              <Route path="Quiz/:challengeId" element={<Quizzes />} />
+              <Route
+                path="Quiz/:subjectId/:challengeId"
+                element={<Quizzes />}
+              />
             </Routes>
           </div>
         </div>

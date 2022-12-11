@@ -51,7 +51,7 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
           </div>
           <div className="d-flex flex-column col-auto">
             <Link
-              to={`/Quiz/${challenge._id}`}
+              to={`/Quiz/${challenge.subjectId}/${challenge._id}`}
               className="btn btn-sm btn-primary"
             >
               Solve
