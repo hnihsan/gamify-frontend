@@ -1,7 +1,8 @@
 import React from "react";
-import logo from "~/src/assets/logo.svg";
-import sketch2 from "~/src/assets/illustrations/2.png";
-import lecture from "~/src/assets/icons/lecture.png";
+// @ts-ignore
+import logo from "~/src/assets/logo.svg"; // @ts-ignore
+import sketch2 from "~/src/assets/illustrations/2.png"; // @ts-ignore
+import lecture from "~/src/assets/icons/lecture.png"; // @ts-ignore
 import student from "~/src/assets/icons/student.png";
 const sketchBgStyle = {
   backgroundImage: "url(" + sketch2 + ")",

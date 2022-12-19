@@ -9,6 +9,9 @@ const ModalEnrollSubject = () => {
         id="game_modal_enroll_subject"
         tabIndex={-1}
         aria-hidden="true"
+        data-backdrop="static"
+        role="dialog"
+        aria-labelledby="staticBackdropLabel"
       >
         {/*begin::Modal dialog*/}
         <div className="modal-dialog modal-dialog-centered mw-900px">

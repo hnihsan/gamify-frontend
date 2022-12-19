@@ -42,6 +42,7 @@ const Subjects = (props: SubjectProp) => {
             <a
               className="nav-link d-flex flex-center overflow-hidden"
               data-bs-toggle="modal"
+              data-backdrop="static"
               href="#game_modal_enroll_subject"
             >
               {/*begin::Icon*/}

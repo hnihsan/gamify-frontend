@@ -34,3 +34,28 @@
 .header {
   z-index: 10;
 }
+
+.absolute-bottom {
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.vertically-middle {
+  top: 50%;
+  transform: translate(0%, -50%) !important;
+}
+
+.countdown-container {
+  background-color: rgba(255, 235, 205, 0.5);
+  border-radius: 80%;
+}
+
+.time-wrapper {
+  font-family: sans-serif;
+}
+
+.time {
+  font-size: 32px;
+}

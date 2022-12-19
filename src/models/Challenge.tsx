@@ -5,6 +5,7 @@ export class Challenge {
   passingScore: number;
   attemptLimit: number;
   difficulty: string;
+  duration: number;
   createdAt: Date;
   updatedAt: Date;
 
@@ -15,6 +16,7 @@ export class Challenge {
     this.passingScore = obj.passingScore;
     this.attemptLimit = obj.attemptLimit;
     this.difficulty = obj.difficulty;
+    this.duration = obj.duration;
     this.createdAt = new Date(obj.createdAt);
     this.updatedAt = new Date(obj.updatedAt);
   }

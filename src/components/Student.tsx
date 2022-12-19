@@ -52,14 +52,14 @@ const Student: React.FC = () => {
                     path="SubjectDetail/:userSubjectId"
                     element={<SubjectDetail />}
                   />
+                  <Route
+                    path="Quiz/:subjectId/:challengeId"
+                    element={<Quizzes />}
+                  />
                 </>
               ) : (
                 <></>
               )}
-              <Route
-                path="Quiz/:subjectId/:challengeId"
-                element={<Quizzes />}
-              />
             </Routes>
           </div>
         </div>
