@@ -27,9 +27,7 @@ const LoginComponent = () => {
   const onSuccessLogin = async (res) => {
     var credential: any = jwtDecode(res.credential);
     console.log(credential);
-    Cookies.set("email", credential.email);
-    Cookies.set("fullname", credential.name);
-    Cookies.set("imageUrl", credential.picture);
+
     var user = await getUser(credential.email);
     if (user._id == undefined) {
       var newUser: NewUser = new NewUser({
@@ -44,6 +42,9 @@ const LoginComponent = () => {
       user._id = apiResponse.insertedId;
     }
     Cookies.set("userId", user._id);
+    Cookies.set("email", credential.email);
+    Cookies.set("fullname", credential.name);
+    Cookies.set("imageUrl", credential.picture);
     window.location.reload();
     // refreshTokenSetup(res);
   };

@@ -11,7 +11,7 @@ const App: React.FC = () => {
     new LoggedInModel(Cookies.get())
   );
 
-  if (loggedInUser.email == undefined) {
+  if (loggedInUser.userId == undefined) {
     return <LoginComponent />;
   } else {
     return <Student />;
