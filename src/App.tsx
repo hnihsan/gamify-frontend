@@ -1,29 +1,18 @@
 import React, { useState, useEffect } from "react";
-import Login from "./components/Login";
+// import Login from "./components/Login";
+import LoginComponent from "./components/Login2";
 import Student from "./components/Student";
+import Cookies from "js-cookie";
 import axios from "axios";
+import { LoggedInModel } from "./models/LoggedInModel";
 
 const App: React.FC = () => {
-  useEffect(() => {
-    // const fetchData = async () => {
-    //   var config = {
-    //     method: "GET",
-    //     url: "https://gamify-backend.vercel.app/api/hello-world",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "Access-Control-Allow-Origin": "*",
-    //     },
-    //   };
-    //   const response = await axios(config);
-    //   console.log(response);
-    // };
-    // // Update the document title using the browser API
-    // console.log("Calling the mongo api");
-    // fetchData().catch(console.error);
-  });
+  const [loggedInUser, setLoggedInUser] = useState<LoggedInModel>(
+    new LoggedInModel(Cookies.get())
+  );
 
-  if (false) {
-    return <Login />;
+  if (loggedInUser.email == undefined) {
+    return <LoginComponent />;
   } else {
     return <Student />;
   }

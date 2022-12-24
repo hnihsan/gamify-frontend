@@ -8,15 +8,16 @@ import { SubjectItem } from "./SubjectsPartial/SubjectItem";
 import { NoSubjectEnrolled } from "./SubjectsPartial/NoSubjectEnrolled";
 
 class SubjectProp {
-  user: User;
+  userId: string;
 }
-const Subjects = (props: SubjectProp) => {
+const Subjects = ({ userId }: SubjectProp) => {
   const [userSubjects, setUserSubjects] = useState<Array<UserSubject>>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    console.log(userId);
     const fetchUserSubjects = async () => {
-      let uss = await getUserSubjects(props.user._id);
+      let uss = await getUserSubjects(userId);
       setUserSubjects(uss);
       setLoading(false);
     };

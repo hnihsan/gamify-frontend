@@ -177,8 +177,8 @@ const Quizzes = () => {
                           id={q._id}
                         >
                           <div className="w-100">
-                            <div className="d-flex">
-                              <div className="col-md-6 me-4">
+                            <div className="row">
+                              <div className="col-md-6 col-sm-12">
                                 <div className="card">
                                   <div className="card-body overflow-auto quiz-question-pane">
                                     <div
@@ -189,7 +189,7 @@ const Quizzes = () => {
                                   </div>
                                 </div>
                               </div>
-                              <div className="col-md-6">
+                              <div className="col-md-6 col-sm-12">
                                 <div className="row">
                                   <div className="col-12 mb-2">
                                     <div className="d-flex flex-column mt-3 w-100">

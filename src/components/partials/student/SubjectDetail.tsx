@@ -160,17 +160,15 @@ const SubjectDetail = () => {
                     ) : (
                       challenges.map((ch) => {
                         return (
-                          <>
-                            <div key={ch._id}>
-                              <ChallengeItem
-                                challenge={ch}
-                                onSeeHistory={() => {
-                                  setSelectedUserAttempts(ch.userAttempts);
-                                  setSelectedChallengeTitle(ch.title);
-                                }}
-                              />
-                            </div>
-                          </>
+                          <div key={ch._id}>
+                            <ChallengeItem
+                              challenge={ch}
+                              onSeeHistory={() => {
+                                setSelectedUserAttempts(ch.userAttempts);
+                                setSelectedChallengeTitle(ch.title);
+                              }}
+                            />
+                          </div>
                         );
                       })
                     )}
@@ -234,33 +232,31 @@ const SubjectDetail = () => {
                               {userSubject.subject.achievements.map(
                                 (ach, index) => {
                                   return (
-                                    <>
-                                      <div
-                                        key={ach._id}
-                                        className={
-                                          "tab-pane fade " +
-                                          (activeAchievement == ach._id
-                                            ? "active show"
-                                            : "")
-                                        }
-                                        id={ach._id}
-                                      >
-                                        <div className="card card-flush">
-                                          <div className="card-body d-flex justify-content-sm-between align-items-center">
-                                            <div className="d-flex flex-column col-12">
-                                              <div className="symbol symbol-100px symbol-fixed text-center mb-4">
-                                                <img
-                                                  src={ach.image}
-                                                  alt={ach.title}
-                                                />
-                                              </div>
-                                              <h4>{ach.title}</h4>
-                                              <p>{ach.description}</p>
+                                    <div
+                                      key={ach._id}
+                                      className={
+                                        "tab-pane fade " +
+                                        (activeAchievement == ach._id
+                                          ? "active show"
+                                          : "")
+                                      }
+                                      id={ach._id}
+                                    >
+                                      <div className="card card-flush">
+                                        <div className="card-body d-flex justify-content-sm-between align-items-center">
+                                          <div className="d-flex flex-column col-12">
+                                            <div className="symbol symbol-100px symbol-fixed text-center mb-4">
+                                              <img
+                                                src={ach.image}
+                                                alt={ach.title}
+                                              />
                                             </div>
+                                            <h4>{ach.title}</h4>
+                                            <p>{ach.description}</p>
                                           </div>
                                         </div>
                                       </div>
-                                    </>
+                                    </div>
                                   );
                                 }
                               )}
@@ -270,35 +266,36 @@ const SubjectDetail = () => {
                               {userSubject.subject.achievements.map(
                                 (ach, index) => {
                                   return (
-                                    <>
-                                      <li className="nav-item mb-3 me-3">
-                                        <a
-                                          className={
-                                            "nav-link d-flex justify-content-between flex-column flex-center overflow-hidden w-80px h-85px py-4 " +
-                                            (activeAchievement == ach._id
-                                              ? "active"
-                                              : "")
-                                          }
-                                          data-bs-toggle="pill"
-                                          onClick={() =>
-                                            setActiveAchievement(ach._id)
-                                          }
-                                        >
-                                          <div className="nav-icon">
-                                            <img
-                                              src={ach.image}
-                                              alt={ach.title}
-                                            />
-                                            {/* <div className="symbol symbol-35px symbol-circle nav-icon">
-                                      <span className="symbol-label bg-gray-700 text-inverse-dark fw-bolder">
-                                        ?
-                                      </span>
-                                    </div> */}
-                                          </div>
-                                          <span className="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
-                                        </a>
-                                      </li>
-                                    </>
+                                    <li
+                                      key={index.toString()}
+                                      className="nav-item mb-3 me-3"
+                                    >
+                                      <a
+                                        className={
+                                          "nav-link d-flex justify-content-between flex-column flex-center overflow-hidden w-80px h-85px py-4 " +
+                                          (activeAchievement == ach._id
+                                            ? "active"
+                                            : "")
+                                        }
+                                        data-bs-toggle="pill"
+                                        onClick={() =>
+                                          setActiveAchievement(ach._id)
+                                        }
+                                      >
+                                        <div className="nav-icon">
+                                          <img
+                                            src={ach.image}
+                                            alt={ach.title}
+                                          />
+                                          {/* <div className="symbol symbol-35px symbol-circle nav-icon">
+                                    <span className="symbol-label bg-gray-700 text-inverse-dark fw-bolder">
+                                      ?
+                                    </span>
+                                  </div> */}
+                                        </div>
+                                        <span className="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
+                                      </a>
+                                    </li>
                                   );
                                 }
                               )}

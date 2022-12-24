@@ -6,25 +6,21 @@ import ModalEnrollSubject from "./partials/student/modals/EnrollSubject";
 import SubjectDetail from "./partials/student/SubjectDetail";
 import Quizzes from "./partials/student/Quiz";
 import Cookies from "js-cookie";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { User } from "../models/User";
-import { getUser } from "../services/GetUser";
-import { getAllSubjects } from "../services/GetAllSubjects";
+import { Routes, Route } from "react-router-dom";
 
 const Student: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [count, setCount] = useState(0);
+  const getUserId = () => Cookies.get("userId");
 
   useEffect(() => {
-    const fetchUser = async () => {
-      var res = await getUser("helmi.n.ihsan@gmail.com");
-      console.log(res);
-      Cookies.set("userId", res._id);
-      setUser(res);
-    };
-
-    fetchUser();
-  }, []);
+    if (getUserId() == undefined) {
+      window.location.reload();
+    }
+    //console.log("Count is ticking: " + count);
+    const timer = setTimeout(() => setCount(count + 1), 5000);
+    return () => clearTimeout(timer);
+  }, [count]);
 
   return (
     <>
@@ -45,9 +41,12 @@ const Student: React.FC = () => {
             />
             {/* Content */}
             <Routes>
-              {user != null ? (
+              {getUserId != undefined ? (
                 <>
-                  <Route path="/" element={<StudentSubjects user={user} />} />
+                  <Route
+                    path="/"
+                    element={<StudentSubjects userId={getUserId()} />}
+                  />
                   <Route
                     path="SubjectDetail/:userSubjectId"
                     element={<SubjectDetail />}

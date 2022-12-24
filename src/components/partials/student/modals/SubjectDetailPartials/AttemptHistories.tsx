@@ -45,7 +45,7 @@ export const AttemptHistoriesModal = ({
                 <>
                   {userAttempts.map((ua) => {
                     return (
-                      <div className="col-12">
+                      <div key={ua._id.toString()} className="col-12">
                         <div className="card card-border-square card-flush">
                           <div className="card-body d-flex justify-content-sm-between align-items-center">
                             <div className="d-flex flex-column col-12">
@@ -77,11 +77,17 @@ export const AttemptHistoriesModal = ({
                   })}
                 </>
               ) : (
-                <tr>
-                  <td colSpan={2} className="text-center">
-                    No attempts taken
-                  </td>
-                </tr>
+                <div className="col-12">
+                  <div className="card card-border-square card-flush">
+                    <div className="card-body d-flex justify-content-sm-between align-items-center">
+                      <div className="d-flex flex-column col-12">
+                        <div className="d-flex d-inline-block justify-content-sm-between">
+                          <h4>No attempt taken yet.</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </div>

@@ -8,7 +8,7 @@ const sketchBgStyle = {
   backgroundImage: "url(" + sketch2 + ")",
 };
 
-const Login2: React.FC = () => {
+const Login: React.FC = () => {
   return (
     <>
       <div className="d-flex flex-column flex-root">
@@ -201,4 +201,4 @@ const Login2: React.FC = () => {
   );
 };
 
-export default Login2;
+export default Login;

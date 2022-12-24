@@ -10,5 +10,7 @@ export function getUser(email: string): Promise<User> {
   };
 
   var config = getAPIConfig("POST", "GetUserByEmail", reqParam);
-  return axios(config).then((response) => new User(response.data.data));
+  return axios(config).then((response) =>
+    response.data.data != null ? new User(response.data.data) : new User({})
+  );
 }
