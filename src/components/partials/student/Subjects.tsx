@@ -1,13 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { UserSubject } from "../../../models/UserSubject";
 import { User } from "../../../models/User";
 import { getUserSubjects } from "../../../services/GetUserSubjects";
 import { LoadingSubject } from "./SubjectsPartial/LoadingSubject";
 import { SubjectItem } from "./SubjectsPartial/SubjectItem";
-import { getSubject } from "../../../services/GetSubject";
-import { Subject } from "../../../models/Subject";
 import { NoSubjectEnrolled } from "./SubjectsPartial/NoSubjectEnrolled";
 
 class SubjectProp {

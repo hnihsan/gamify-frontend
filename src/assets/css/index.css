@@ -59,3 +59,7 @@
 .time {
   font-size: 32px;
 }
+
+.mh-500px {
+  max-height: 500px;
+}

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Challenge } from "../../../models/Challenge";
 // @ts-ignore
 import achv_1 from "~/src/assets/media/achievements/badge1.png";
-import { getSubject } from "../../../services/GetSubject";
-import { Subject } from "../../../models/Subject";
 import { getChallenges } from "../../../services/GetChallenges";
 import { ChallengeItem } from "./SubjectDetailPart/ChallengeItem";
 import { UserSubject } from "../../../models/UserSubject";
 import { getUserSubject } from "../../../services/GetUserSubject";
 import { NoChallenge } from "./SubjectDetailPart/NoChallenge";
 import Loading from "../shared/LoadingComponent";
+import Cookies from "js-cookie";
+import { AttemptHistoriesModal } from "./modals/SubjectDetailPartials/AttemptHistories";
+import { UserAttempt } from "../../../models/UserAttempt";
 
 const SubjectDetail = () => {
   const { userSubjectId } = useParams();
@@ -21,6 +22,12 @@ const SubjectDetail = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingChallenge, setLoadingChallenge] = useState<boolean>(true);
   const [activeAchievement, setActiveAchievement] = useState<string>("");
+  const [selectedUserAttempts, setSelectedUserAttempts] = useState<
+    Array<UserAttempt>
+  >([]);
+  const [selectedChallengeTitle, setSelectedChallengeTitle] =
+    useState<string>("");
+  const getUserId = () => Cookies.get("userId");
 
   useEffect(() => {
     const fetchUserSubject = async () => {
@@ -38,13 +45,14 @@ const SubjectDetail = () => {
 
   useEffect(() => {
     const fetchChallenges = async () => {
-      let chs = await getChallenges(userSubject.subjectId);
+      let chs = await getChallenges(userSubject.subjectId, getUserId());
       setChallenges(chs);
       setLoadingChallenge(false);
     };
 
     fetchChallenges();
   }, [userSubject]);
+
   return (
     <>
       {/*begin::Content*/}
@@ -154,7 +162,13 @@ const SubjectDetail = () => {
                         return (
                           <>
                             <div key={ch._id}>
-                              <ChallengeItem challenge={ch} />
+                              <ChallengeItem
+                                challenge={ch}
+                                onSeeHistory={() => {
+                                  setSelectedUserAttempts(ch.userAttempts);
+                                  setSelectedChallengeTitle(ch.title);
+                                }}
+                              />
                             </div>
                           </>
                         );
@@ -349,6 +363,10 @@ const SubjectDetail = () => {
         {/*end::Container*/}
       </div>
       {/*end::Content*/}
+      <AttemptHistoriesModal
+        userAttempts={selectedUserAttempts}
+        challengeTitle={selectedChallengeTitle}
+      />
     </>
   );
 };

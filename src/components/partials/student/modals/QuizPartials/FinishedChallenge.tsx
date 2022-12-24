@@ -6,7 +6,13 @@ const winnerBgImage = {
   backgroundImage: "url(" + winner + ")",
 };
 
-const ModalFinishedChallenge = () => {
+interface modalProp {
+  onContinue: () => void;
+  score: number;
+  isPassed: boolean;
+}
+
+const ModalFinishedChallenge = ({ onContinue, score, isPassed }: modalProp) => {
   return (
     <>
       <div style={{ zIndex: 109 }} className="drawer-overlay"></div>
@@ -31,15 +37,21 @@ const ModalFinishedChallenge = () => {
                   className="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-150px min-h-lg-350px"
                   style={winnerBgImage}
                 ></div>
-                <h1 className="fw-bolder fs-2qx text-gray-800 mb-7">
-                  Congratulations !
+                <h1 className="fw-bold fs-1qx text-gray-800">Your score:</h1>
+                <h1
+                  className={
+                    "fw-bolder fs-3qx " +
+                    (isPassed ? "text-success" : "text-danger")
+                  }
+                >
+                  {score}
                 </h1>
-                {/*end::Logo*/}
-                {/*begin::Message*/}
+
                 <div className="fw-bold fs-3 text-muted mb-7">
-                  You just finished this challenge.
+                  {isPassed
+                    ? "Congratulations! You pass this Challenge."
+                    : "You can do it better next time!"}
                 </div>
-                {/*end::Message*/}
 
                 {/*begin::Action*/}
                 <div className="text-gray-700 fw-bold fs-4 pt-7">
@@ -54,9 +66,12 @@ const ModalFinishedChallenge = () => {
                 {/*end::Action*/}
               </div>
               <div className="d-flex flex-center flex-row-fluid pt-12">
-                <a href="./subject-details.html" className="btn btn-primary">
+                <button
+                  onClick={() => onContinue()}
+                  className="btn btn-primary"
+                >
                   Continue
-                </a>
+                </button>
               </div>
             </div>
             {/*end::Modal body*/}

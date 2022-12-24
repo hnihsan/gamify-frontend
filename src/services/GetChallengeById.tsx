@@ -3,10 +3,14 @@ import { getAPIConfig } from "../lib/AxiosConfig";
 import { Challenge } from "../models/Challenge";
 import { Subject } from "../models/Subject";
 
-export function getChallengeById(id: string): Promise<Challenge> {
+export function getChallengeById(
+  challengeId: string,
+  userId: string
+): Promise<Challenge> {
   var reqParam = {
     query: {
-      _id: id,
+      challengeId: challengeId,
+      userId: userId,
     },
   };
 

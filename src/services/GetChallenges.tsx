@@ -2,10 +2,14 @@ import axios from "axios";
 import { getAPIConfig } from "../lib/AxiosConfig";
 import { Challenge } from "../models/Challenge";
 
-export function getChallenges(subjectId: string): Promise<Array<Challenge>> {
+export function getChallenges(
+  subjectId: string,
+  userId: string
+): Promise<Array<Challenge>> {
   var reqParam = {
     query: {
       subjectId: subjectId,
+      userId: userId,
     },
   };
 

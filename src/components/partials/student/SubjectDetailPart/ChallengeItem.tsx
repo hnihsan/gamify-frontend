@@ -3,11 +3,13 @@ import { Challenge } from "../../../../models/Challenge";
 import { Link } from "react-router-dom";
 class ChallengeItemProp {
   challenge: Challenge;
+  onSeeHistory: () => void;
 }
 
 export const ChallengeItem = (props: ChallengeItemProp) => {
   const [challenge, setChallenge] = useState<Challenge>(props.challenge);
   const [badgeStyle, setBadgeStyle] = useState<string>("badge-light-success");
+  const [attemptLeft, setAttemptLeft] = useState<number>(0);
 
   useEffect(() => {
     switch (challenge.difficulty) {
@@ -20,8 +22,13 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
       case "Hard":
         setBadgeStyle("badge-light-danger");
         break;
+      default:
+        setBadgeStyle("badge-light-info");
     }
-  });
+
+    setAttemptLeft(challenge.attemptLimit - challenge.attemptsCount);
+  }, []);
+
   return (
     <div className="col-12">
       <div className="card card-border-square card-flush">
@@ -36,9 +43,14 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
                 </span>
               </span>
               <span className="text-gray-400 fw-bold fs-7 d-block text-start ps-0">
-                Attempt:{" "}
-                <span className="text-dark fw-bold fs-7 d-block text-start ps-0">
-                  {challenge.attemptLimit}
+                Attempt left:{" "}
+                <span
+                  className={
+                    "fw-bold fs-7 d-block text-start ps-0 " +
+                    (attemptLeft <= 0 ? "text-danger" : "text-dark")
+                  }
+                >
+                  {attemptLeft}
                 </span>
               </span>
               <span className="text-gray-400 fw-bold fs-7 d-block text-start ps-0">
@@ -47,15 +59,50 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
                   {challenge.difficulty}
                 </span>
               </span>
+              {challenge.attemptsCount > 0 ? (
+                <>
+                  <span className="text-gray-400 fw-bolder fs-7 d-block text-start ps-0">
+                    Your HiScore:{" "}
+                    <span
+                      className={
+                        "d-block success fs-1 fw-bolder " +
+                        (challenge.playerHighscore < challenge.passingScore
+                          ? "text-danger"
+                          : "text-success")
+                      }
+                    >
+                      {challenge.playerHighscore}
+                    </span>
+                  </span>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <div className="d-flex flex-column col-auto">
-            <Link
-              to={`/Quiz/${challenge.subjectId}/${challenge._id}`}
-              className="btn btn-sm btn-primary"
-            >
-              Solve
-            </Link>
+            {attemptLeft > 0 ? (
+              <Link
+                to={`/Quiz/${challenge.subjectId}/${challenge._id}`}
+                className="btn btn-sm btn-primary mb-2"
+              >
+                Solve
+              </Link>
+            ) : (
+              <></>
+            )}
+            {challenge.attemptsCount > 0 ? (
+              <a
+                className="btn btn-secondary btn-sm mb-2"
+                data-bs-toggle="modal"
+                href="#challengeAttemptHistoriesModal"
+                onClick={() => props.onSeeHistory()}
+              >
+                View attempt history
+              </a>
+            ) : (
+              <></>
+            )}
             {/* Solved <i className="bi bi-check2-circle"></i>             */}
           </div>
         </div>

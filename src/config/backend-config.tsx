@@ -1,3 +1,3 @@
 export var mongoConfig = {
-  url: "http://localhost:3000/api/",
+  url: process.env.BACKEND_URI,
 };

@@ -1,3 +1,5 @@
+import { UserAttempt } from "./UserAttempt";
+
 export class Challenge {
   _id: string;
   subjectId: string;
@@ -5,6 +7,9 @@ export class Challenge {
   passingScore: number;
   attemptLimit: number;
   difficulty: string;
+  userAttempts: Array<UserAttempt>;
+  attemptsCount: number;
+  playerHighscore: number;
   duration: number;
   createdAt: Date;
   updatedAt: Date;
@@ -17,6 +22,9 @@ export class Challenge {
     this.attemptLimit = obj.attemptLimit;
     this.difficulty = obj.difficulty;
     this.duration = obj.duration;
+    this.userAttempts = obj.userAttempts;
+    this.attemptsCount = obj.attemptsCount;
+    this.playerHighscore = obj.playerHighscore;
     this.createdAt = new Date(obj.createdAt);
     this.updatedAt = new Date(obj.updatedAt);
   }

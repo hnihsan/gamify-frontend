@@ -19,6 +19,7 @@ import { PromptStartChallenge } from "./modals/QuizPartials/PromptStartChallenge
 import { useNavigate } from "react-router-dom";
 import CountDownTimerComponent from "../shared/CountdownComponent";
 import { getChallengeById } from "../../../services/GetChallengeById";
+import { Challenge } from "../../../models/Challenge";
 
 class AnswerStatus {
   quizId: string;
@@ -38,7 +39,10 @@ const Quizzes = () => {
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [attemptId, setAttemptId] = useState<string | null>(null);
-  const [challengeDuration, setChallengeDuration] = useState<number>(10);
+  const [challenge, setChallenge] = useState<Challenge>(new Challenge({}));
+  const [isEligible, setIsEligible] = useState<boolean>(false);
+  const [playerScore, setPlayerScore] = useState<number>(0);
+  const [isChlPassed, setIsChlPassed] = useState<boolean>(false);
   const isSubmitted = useRef(false);
 
   const navigate = useNavigate();
@@ -49,14 +53,14 @@ const Quizzes = () => {
     var vm = new CreateInitialUserAttempt_VM({
       challengeId: challengeId,
       subjectId: subjectId,
-      userId: Cookies.get("userId"),
+      userId: getUserId(),
       score: 0,
       duration: 0,
     });
     var res = await createInitialUserAttempt(vm);
     setAttemptId(res.insertedId);
     setIsStarted(true);
-    delay(challengeDuration * 1000).then(() => SubmitQuiz(res.insertedId));
+    delay(challenge.duration * 1000).then(() => SubmitQuiz(res.insertedId));
   };
   const SubmitQuiz = async (attemptId_input: string | null = null) => {
     console.log(
@@ -76,6 +80,9 @@ const Quizzes = () => {
     console.log("Score: " + correctAnswerCount + "/" + totalQuiz);
 
     var score = (correctAnswerCount / totalQuiz) * 100;
+    setPlayerScore(score);
+    let isPlayerPassed = score >= challenge.passingScore;
+    setIsChlPassed(isPlayerPassed);
     var vm = new SubmitUserAttempt_VM({
       _id: attemptId_input || attemptId,
       challengeId: challengeId,
@@ -108,12 +115,14 @@ const Quizzes = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (typeof challengeId == "string") {
-        let challenge = await getChallengeById(challengeId);
-        setChallengeDuration(challenge.duration);
+        let challenge = await getChallengeById(challengeId, getUserId());
+        setChallenge(challenge);
+        let isEligible = challenge.attemptsCount < challenge.attemptLimit;
+        setIsEligible(isEligible);
 
         let qzs = await getQuizzes(challengeId);
         let shuffledQzs = shuffleArray(qzs);
-        setActiveQuiz(shuffledQzs[0]._id);
+        if (shuffledQzs.length > 0) setActiveQuiz(shuffledQzs[0]._id);
         setQuizzes(shuffledQzs);
 
         let answers: Array<AnswerStatus> = [];
@@ -152,7 +161,7 @@ const Quizzes = () => {
           {isStarted && !isFinished ? (
             <>
               <div className="tab-content min-h-100">
-                <CountDownTimerComponent duration={challengeDuration} />
+                <CountDownTimerComponent duration={challenge.duration} />
                 {loading ? (
                   <Loading />
                 ) : (
@@ -368,9 +377,18 @@ const Quizzes = () => {
         <PromptStartChallenge
           onNotReady={() => navigate(-1)}
           onStartChallenge={() => StartQuiz()}
+          isEligible={isEligible}
         />
       )}
-      {isFinished ? <ModalFinishedChallenge /> : <></>}
+      {isFinished ? (
+        <ModalFinishedChallenge
+          score={playerScore}
+          isPassed={isChlPassed}
+          onContinue={() => navigate(-1)}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
