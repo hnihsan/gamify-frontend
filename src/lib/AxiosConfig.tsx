@@ -6,7 +6,7 @@ export function getAPIConfig(method, urlHandle, dataParam: any = {}) {
     url: mongoConfig.url + urlHandle,
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "http://localhost:1234",
+      "Access-Control-Allow-Origin": process.env.APP_URI,
     },
     data: dataParam,
   };
