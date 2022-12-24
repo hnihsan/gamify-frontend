@@ -21,7 +21,7 @@ const StudentSideNav = ({ isNavDisplayed }: sideNavProps) => {
     Cookies.remove("fullname");
 
     console.log(Cookies.get());
-    window.location.reload();
+    window.location.href = "/";
   };
 
   return (
