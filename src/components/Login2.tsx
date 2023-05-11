@@ -2,7 +2,7 @@ import jwtDecode from "jwt-decode";
 import React, { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
 // @ts-ignore
-import logo from "~/src/assets/logo.svg";
+import logo from "~/src/assets/logo.png";
 import { getUser } from "../services/GetUser";
 import { NewUser } from "../models/User";
 import { InsertResponse } from "../models/ApiModel";
@@ -98,9 +98,14 @@ const LoginComponent = () => {
             <form>
               <div className="text-center align-items-center justify-content-center justify-content-lg-start">
                 <a href="../../index.html" className="py-9 pt-lg-20">
-                  <img alt="Logo" src={logo} className="h-40px" />
+                  <img
+                    alt="Logo"
+                    src={logo}
+                    className=""
+                    style={{ height: "150px" }}
+                  />
                 </a>
-                <h1 className="fw-bolder fs-2qx">Welcome to Gamification</h1>
+                <h1 className="fw-bolder fs-2qx mt-4">Welcome to Gamphy</h1>
                 <p className="fw-bold fs-2">Hone your skill with Challenges</p>
                 <div
                   className="d-flex justify-content-center"

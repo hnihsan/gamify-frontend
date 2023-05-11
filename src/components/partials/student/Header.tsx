@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // @ts-ignore
-import logo from "~/src/assets/logo.svg";
+import logo from "~/src/assets/logo_landscape.png";
 
 interface mainHeaderProps {
   handleToggleNav: () => void;
@@ -51,7 +51,7 @@ const StudentMainHeader = ({ handleToggleNav }: mainHeaderProps) => {
           {/*end::Aside toggle*/}
           {/*begin::Logo*/}
           <a href="#">
-            <img alt="Logo" src={logo} className="h-25px" />
+            <img alt="Logo" src={logo} style={{ height: "80px" }} />
           </a>
           {/*end::Logo*/}
         </div>

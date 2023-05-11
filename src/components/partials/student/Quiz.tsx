@@ -121,12 +121,13 @@ const Quizzes = () => {
         setIsEligible(isEligible);
 
         let qzs = await getQuizzes(challengeId);
-        let shuffledQzs = shuffleArray(qzs);
-        if (shuffledQzs.length > 0) setActiveQuiz(shuffledQzs[0]._id);
-        setQuizzes(shuffledQzs);
+        let shuffledQzs: Array<Quiz> = shuffleArray(qzs);
+        let slicedQzs = shuffledQzs.slice(0, 3);
+        if (slicedQzs.length > 0) setActiveQuiz(slicedQzs[0]._id);
+        setQuizzes(slicedQzs);
 
         let answers: Array<AnswerStatus> = [];
-        shuffledQzs.forEach((qz) => {
+        slicedQzs.forEach((qz) => {
           answers.push(new AnswerStatus(qz._id));
         });
 

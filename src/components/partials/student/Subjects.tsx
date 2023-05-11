@@ -97,12 +97,11 @@ const Subjects = ({ userId }: SubjectProp) => {
             ) : (
               userSubjects.map((userSubject) => {
                 return (
-                  <div key={userSubject._id}>
-                    <SubjectItem
-                      userSubject={userSubject}
-                      subject={userSubject.subject}
-                    />
-                  </div>
+                  <SubjectItem
+                    key={userSubject._id}
+                    userSubject={userSubject}
+                    subject={userSubject.subject}
+                  />
                 );
               })
             )}

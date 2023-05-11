@@ -1,6 +1,6 @@
 import React from "react";
 // @ts-ignore
-import logo from "~/src/assets/logo.svg"; // @ts-ignore
+import logo from "~/src/assets/logo.png"; // @ts-ignore
 import sketch2 from "~/src/assets/illustrations/2.png"; // @ts-ignore
 import lecture from "~/src/assets/icons/lecture.png"; // @ts-ignore
 import student from "~/src/assets/icons/student.png";
@@ -17,7 +17,7 @@ const Login: React.FC = () => {
             <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
               <div className="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
                 <a href="../../index.html" className="py-9 pt-lg-20">
-                  <img alt="Logo" src={logo} className="h-40px" />
+                  <img alt="Logo" src={logo} className="" />
                 </a>
                 <h1 className="fw-bolder text-white fs-2qx pb-lg-10">
                   Welcome to Gamification
@@ -62,7 +62,11 @@ const Login: React.FC = () => {
                         href="#content_login_student"
                       >
                         <div className="nav-icon">
-                          <img alt="Logo" src={student} className="" />
+                          <img
+                            alt="Logo"
+                            src={student}
+                            style={{ height: "150px" }}
+                          />
                         </div>
                         <span className="nav-text text-gray-700 fw-bolder fs-6 lh-1">
                           Student

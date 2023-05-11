@@ -48909,7 +48909,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #99e798; /* Primary Color - GAMI */
+    background-color: white; /* Primary Color - GAMI */
     z-index: 2;
 }
 
@@ -49551,11 +49551,11 @@ body {
 }
 
 .content-bg{
-    background-color: #d9f5d8; /* Secondary Color - GAMI*/
+    background-color: #ffe6b3; /* Secondary Color - GAMI*/
 }
 
 .user-header{
-    background-color: #fff;
+    background-color: #f5b737;
     height: 98px;
     box-shadow: 0px 4px 10px 0px #80808047;
     z-index: 2;

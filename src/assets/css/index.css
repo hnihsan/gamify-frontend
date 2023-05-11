@@ -79,3 +79,19 @@ height: calc(100% - 73px);
 height: 100%;
 }
 }
+
+.gamphy-mainbg {
+  background-color: #86aadf !important;
+}
+
+.gamphy-secondbg {
+  background-color: #f5b737 !important;
+}
+
+.gamphy-secondbg-light {
+  background-color: #ffe6b3 !important;
+}
+
+a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
+  background-color: #f46a61 !important;
+}

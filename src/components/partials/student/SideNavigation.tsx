@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // @ts-ignore
-import logo from "~/src/assets/logo.svg"; // @ts-ignore
+import logo from "~/src/assets/logo_landscape.png"; // @ts-ignore
 import Cookies from "js-cookie";
 import { LoggedInModel } from "../../../models/LoggedInModel";
 
@@ -41,7 +41,7 @@ const StudentSideNav = ({ isNavDisplayed }: sideNavProps) => {
         <div className="aside-toolbar py-5" id="kt_aside_toolbar">
           <div className="d-flex justify-content-center-stack">
             <a href="#">
-              <img alt="Logo" src={logo} className="h-25px" />
+              <img alt="Logo" src={logo} style={{ height: "80px" }} />
             </a>
           </div>
         </div>

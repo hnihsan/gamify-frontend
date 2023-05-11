@@ -11,6 +11,7 @@ export class Challenge {
   attemptsCount: number;
   playerHighscore: number;
   duration: number;
+  qCount: number;
   createdAt: Date;
   updatedAt: Date;
 
@@ -27,5 +28,6 @@ export class Challenge {
     this.playerHighscore = obj.playerHighscore;
     this.createdAt = new Date(obj.createdAt);
     this.updatedAt = new Date(obj.updatedAt);
+    this.qCount = obj.qCount;
   }
 }
