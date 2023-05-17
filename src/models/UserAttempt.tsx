@@ -24,6 +24,8 @@ export class CreateInitialUserAttempt_VM {
   subjectId: string;
   score: number;
   duration: number; // in second
+  code: string;
+  passingGrade: number;
 
   constructor(obj: any) {
     this.challengeId = obj.challengeId;
@@ -31,6 +33,8 @@ export class CreateInitialUserAttempt_VM {
     this.userId = obj.userId;
     this.score = obj.score;
     this.duration = obj.duration;
+    this.code = obj.code;
+    this.passingGrade = obj.passingGrade;
   }
 }
 
@@ -41,6 +45,8 @@ export class SubmitUserAttempt_VM {
   subjectId: string;
   score: number;
   duration: number; // in second
+  code: string;
+  passingGrade: number;
 
   constructor(obj: any) {
     this._id = obj._id;
@@ -49,5 +55,7 @@ export class SubmitUserAttempt_VM {
     this.userId = obj.userId;
     this.score = obj.score;
     this.duration = obj.duration;
+    this.code = obj.code;
+    this.passingGrade = obj.passingGrade;
   }
 }

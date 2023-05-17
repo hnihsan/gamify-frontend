@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Challenge } from "../../../../models/Challenge";
 import { Link } from "react-router-dom";
+// @ts-ignore
+import lock from "~/src/assets/icons/lock.png";
 class ChallengeItemProp {
   challenge: Challenge;
+  completedChallenges: Array<string> = [];
   onSeeHistory: () => void;
 }
 
@@ -30,71 +33,64 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
   }, []);
 
   return (
-    <div className="col-12">
+    <div className="col-12 p-relative">
+      {OverlayBlockingComponent(
+        challenge.requiredChallengeCode,
+        props.completedChallenges
+      )}
       <div className="card card-border-square card-flush">
         <div className="card-body">
           <div className="row">
-            <div className="d-flex flex-column col-md-9 col-sm-12">
+            <div className="col-12 text-center">
               <h1>{challenge.title}</h1>
-              <div className="d-flex d-inline-block justify-content-between">
-                <span className="text-gray-400 fw-bold fs-7 d-block text-start ps-0">
-                  Passing Score:{" "}
-                  <span className="text-dark fw-bold fs-7 d-block text-start ps-0">
-                    {challenge.passingScore}
-                  </span>
+            </div>
+            <div className="col-md-3 col-4 text-center">
+              <span className="text-gray-400 fw-bolder fs-7 d-block ps-0">
+                Passing Score:{" "}
+                <span className="text-dark fw-bolder fs-1 d-block ps-0">
+                  {challenge.passingScore}
                 </span>
-                <span className="text-gray-400 fw-bold fs-7 d-block text-start ps-0">
-                  Attempt left:{" "}
+              </span>
+            </div>
+            <div className="col-md-3 col-4 text-center">
+              <span className="text-gray-400 fw-bold fs-7 d-block ps-0">
+                Difficulty:{" "}
+                <span className={"d-block badge fs-4 " + badgeStyle}>
+                  {challenge.difficulty}
+                </span>
+              </span>
+            </div>
+            <div className="col-md-3 col-4 text-center mb-4">
+              {challenge.attemptsCount > 0 ? (
+                <span className="text-gray-400 fw-bolder fs-7 d-block ps-0">
+                  Your HiScore:{" "}
                   <span
                     className={
-                      "fw-bold fs-7 d-block text-start ps-0 " +
-                      (attemptLeft <= 0 ? "text-danger" : "text-dark")
+                      "d-block success fs-1 fw-bolder " +
+                      (challenge.playerHighscore < challenge.passingScore
+                        ? "text-danger"
+                        : "text-success")
                     }
                   >
-                    {attemptLeft}
+                    {challenge.playerHighscore.toFixed(0)}
                   </span>
                 </span>
-                <span className="text-gray-400 fw-bold fs-7 d-block text-start ps-0">
-                  Difficulty:{" "}
-                  <span className={"d-block badge " + badgeStyle}>
-                    {challenge.difficulty}
-                  </span>
-                </span>
-                {challenge.attemptsCount > 0 ? (
-                  <>
-                    <span className="text-gray-400 fw-bolder fs-7 d-block text-start ps-0">
-                      Your HiScore:{" "}
-                      <span
-                        className={
-                          "d-block success fs-1 fw-bolder " +
-                          (challenge.playerHighscore < challenge.passingScore
-                            ? "text-danger"
-                            : "text-success")
-                        }
-                      >
-                        {challenge.playerHighscore}
-                      </span>
-                    </span>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </div>
-            <div className="d-flex flex-column col-md-3 col-sm-12">
-              {attemptLeft > 0 ? (
-                <Link
-                  to={`/Quiz/${challenge.subjectId}/${challenge._id}`}
-                  className="btn btn-sm btn-primary mb-2"
-                >
-                  Solve
-                </Link>
               ) : (
-                <></>
+                <span className="text-gray-400 fw-bolder fs-7 d-block ps-0">
+                  Not attempted
+                </span>
               )}
+            </div>
+            <div className="col-md-3 col-12 text-center">
+              <Link
+                to={`/Quiz/${challenge.subjectId}/${challenge._id}`}
+                className="btn btn-sm btn-primary mb-2 w-100"
+              >
+                Solve
+              </Link>
               {challenge.attemptsCount > 0 ? (
                 <a
-                  className="btn btn-secondary btn-sm mb-2"
+                  className="btn btn-secondary btn-sm mb-2 w-100"
                   data-bs-toggle="modal"
                   href="#challengeAttemptHistoriesModal"
                   onClick={() => props.onSeeHistory()}
@@ -104,11 +100,27 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
               ) : (
                 <></>
               )}
-              {/* Solved <i className="bi bi-check2-circle"></i>             */}
             </div>
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+const OverlayBlockingComponent = (
+  reqCode: string,
+  codes: Array<string> = []
+) => {
+  if (reqCode) {
+    if (!codes.includes(reqCode)) {
+      return (
+        <div className="overlay-blocking">
+          <img src={lock} />
+        </div>
+      );
+    }
+  }
+
+  return <></>;
 };

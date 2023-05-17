@@ -5,6 +5,7 @@ export class UserSubject {
   subjectId: string;
   userId: string;
   completedAchievementIds: Array<string>;
+  completedChallengeCodes: Array<string>;
   finishedChallengesCount: number;
   subject: Subject;
   createdAt: Date;
@@ -15,6 +16,7 @@ export class UserSubject {
     this.subjectId = obj.subjectId;
     this.userId = obj.userId;
     this.completedAchievementIds = obj.completedAchievementIds;
+    this.completedChallengeCodes = obj.completedChallengeCodes || [];
     this.finishedChallengesCount = obj.finishedChallengesCount;
     this.subject = obj.subject;
     this.createdAt = new Date(obj.createdAt);

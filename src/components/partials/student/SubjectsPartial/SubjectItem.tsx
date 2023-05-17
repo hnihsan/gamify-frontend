@@ -17,7 +17,7 @@ export const SubjectItem = (props: SubjectItemProp) => {
   const [subject, setSubject] = useState<Subject>(props.subject);
 
   return (
-    <div className="col-md-6 col-lg-6 col-xl-6 col-xxl-3 mb-md-5 mb-xl-10">
+    <div className="col-md-6 my-2">
       <div className="card card-flush card-subjects gamphy-mainbg">
         <div className="card-header pt-5">
           <div className="card-title d-flex flex-column">
@@ -40,13 +40,13 @@ export const SubjectItem = (props: SubjectItemProp) => {
                 role="progressbar"
                 style={{
                   width:
-                    (userSubject.finishedChallengesCount /
+                    (userSubject.completedChallengeCodes.length /
                       subject.challengeCount) *
                       100 +
                     "%",
                 }}
                 aria-valuenow={
-                  (userSubject.finishedChallengesCount /
+                  (userSubject.completedChallengeCodes.length /
                     subject.challengeCount) *
                   100
                 }
@@ -56,13 +56,15 @@ export const SubjectItem = (props: SubjectItemProp) => {
             </div>
             <div className="d-flex justify-content-between w-100 mt-2 mb-2">
               <span className="fw-light fs-6 text-white">
-                ({userSubject.finishedChallengesCount} /{" "}
+                ({userSubject.completedChallengeCodes.length} /{" "}
                 {subject.challengeCount} challenges completed)
               </span>
               <span className="fw-boldest fs-6 text-dark">
-                {(userSubject.finishedChallengesCount /
-                  subject.challengeCount) *
-                  100}
+                {(
+                  (userSubject.completedChallengeCodes.length /
+                    subject.challengeCount) *
+                  100
+                ).toFixed(0)}
                 %
               </span>
             </div>
@@ -105,7 +107,7 @@ export const SubjectItem = (props: SubjectItemProp) => {
               to={`/SubjectDetail/${userSubject._id}`}
               className="btn btn-success btn-lg gamphy-secondbg"
             >
-              {userSubject.finishedChallengesCount > 0
+              {userSubject.completedChallengeCodes.length > 0
                 ? "Continue Subject"
                 : "Start Subject"}
             </Link>

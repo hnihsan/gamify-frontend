@@ -44,7 +44,7 @@ const ModalFinishedChallenge = ({ onContinue, score, isPassed }: modalProp) => {
                     (isPassed ? "text-success" : "text-danger")
                   }
                 >
-                  {score}
+                  {score.toFixed(0)}
                 </h1>
 
                 <div className="fw-bold fs-3 text-muted mb-7">

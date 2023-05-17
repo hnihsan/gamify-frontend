@@ -47,11 +47,14 @@ const SubjectDetail = () => {
     const fetchChallenges = async () => {
       let chs = await getChallenges(userSubject.subjectId, getUserId());
       setChallenges(chs);
-      setLoadingChallenge(false);
     };
 
     fetchChallenges();
   }, [userSubject]);
+
+  useEffect(() => {
+    if (userSubject._id != undefined) setLoadingChallenge(false);
+  }, [challenges]);
 
   return (
     <>
@@ -135,26 +138,22 @@ const SubjectDetail = () => {
                     {loading ? (
                       <></>
                     ) : (
-                      <>
-                        <div className="col-12">
-                          <div className="card card-border-square card-flush">
-                            <div className="card-body d-flex justify-content-center">
-                              <h1>{userSubject.subject.title}</h1>
-                            </div>
+                      <div className="col-12">
+                        <div className="card card-border-square card-flush">
+                          <div className="card-body d-flex justify-content-center">
+                            <h1>{userSubject.subject.title}</h1>
                           </div>
                         </div>
-                      </>
+                      </div>
                     )}
                     {loadingChallenge ? (
-                      <>
-                        <div className="col-12">
-                          <div className="card card-border-square card-flush">
-                            <div className="card-body d-flex justify-content-center">
-                              <Loading />
-                            </div>
+                      <div className="col-12">
+                        <div className="card card-border-square card-flush">
+                          <div className="card-body d-flex justify-content-center">
+                            <Loading />
                           </div>
                         </div>
-                      </>
+                      </div>
                     ) : challenges.length == 0 ? (
                       <NoChallenge />
                     ) : (
@@ -163,6 +162,9 @@ const SubjectDetail = () => {
                           <div key={ch._id}>
                             <ChallengeItem
                               challenge={ch}
+                              completedChallenges={
+                                userSubject.completedChallengeCodes
+                              }
                               onSeeHistory={() => {
                                 setSelectedUserAttempts(ch.userAttempts);
                                 setSelectedChallengeTitle(ch.title);

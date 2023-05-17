@@ -12,6 +12,8 @@ export class Challenge {
   playerHighscore: number;
   duration: number;
   qCount: number;
+  requiredChallengeCode: string;
+  code: string;
   createdAt: Date;
   updatedAt: Date;
 
@@ -26,8 +28,10 @@ export class Challenge {
     this.userAttempts = obj.userAttempts;
     this.attemptsCount = obj.attemptsCount;
     this.playerHighscore = obj.playerHighscore;
+    this.requiredChallengeCode = obj.requiredChallengeCode;
     this.createdAt = new Date(obj.createdAt);
     this.updatedAt = new Date(obj.updatedAt);
     this.qCount = obj.qCount;
+    this.code = obj.code;
   }
 }

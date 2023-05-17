@@ -1,33 +1,32 @@
 import React from "react";
-import Loading from "../../shared/LoadingComponent";
+// @ts-ignore
+import ava_frame from "~/src/assets/icons/sorry.png";
 
 export const NoSubjectEnrolled = () => {
   return (
-    <>
-      <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-md-12 mb-xl-12">
-        {/*begin::Card widget 7*/}
-        <div className="card card-flush card-subjects">
-          {/*begin::Header*/}
-          <div className="card-header pt-5">
-            {/*begin::Title*/}
-            <div className="card-title d-flex flex-column justify-content-center">
-              {/*begin::Subject Title*/}
-              <span className="fs-2hx fw-bolder text-dark me-2 lh-1">
-                No subject enrolled
-              </span>
-              {/*end::Subject Title*/}
+    <div className="col-12 my-2">
+      {/*begin::Card widget 7*/}
+      <div className="card card-flush card-subjects">
+        {/*begin::Card body*/}
+        <div className="card-body text-center">
+          <div className="row">
+            <div className="col-12">
+              <img
+                src={ava_frame}
+                style={{ maxHeight: "100px" }}
+                className="mx-auto"
+              />
             </div>
-            {/*end::Title*/}
+            <div className="col-12">
+              <h3 className="fs-2x fw-lighter">
+                Maaf ya, belum ada materi yang bisa diikuti . .
+              </h3>
+            </div>
           </div>
-          {/*end::Header*/}
-          {/*begin::Card body*/}
-          <div className="card-body text-center">
-            Enroll to a subject and start your challenges!
-          </div>
-          {/*end::Card body*/}
         </div>
-        {/*end::Card widget 7*/}
+        {/*end::Card body*/}
       </div>
-    </>
+      {/*end::Card widget 7*/}
+    </div>
   );
 };

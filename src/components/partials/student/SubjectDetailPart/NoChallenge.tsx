@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Challenge } from "../../../../models/Challenge";
-import { Link } from "react-router-dom";
+// @ts-ignore
+import ava_frame from "~/src/assets/icons/sorry.png";
 
 export const NoChallenge = () => {
   return (
     <div className="col-12">
       <div className="card card-border-square card-flush">
-        <div className="card-body d-flex justify-content-center">
-          <h3>No Challenge available for this subject</h3>
+        <div className="card-body">
+          <div className="row">
+            <div className="col-12 text-center">
+              <img
+                src={ava_frame}
+                style={{ maxHeight: "100px" }}
+                className="mx-auto"
+              />
+            </div>
+            <div className="col-12">
+              <h3 className="fs-2x fw-lighter">
+                Maaf ya, belum ada challenge yang bisa dikerjakan untuk materi
+                ini . .
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>

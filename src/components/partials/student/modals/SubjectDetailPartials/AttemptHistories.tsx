@@ -53,7 +53,7 @@ export const AttemptHistoriesModal = ({
                                 <span className="text-gray-400 fw-bold fs-7 d-block text-start ps-0">
                                   Score:{" "}
                                   <span className="text-dark fw-bold fs-7 d-block text-start ps-0">
-                                    {ua.score}
+                                    {ua.score.toFixed(0)}
                                   </span>
                                 </span>
                                 <span className="text-gray-400 fw-bold fs-7 d-block text-start ps-0">

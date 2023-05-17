@@ -18,7 +18,7 @@ export class Subject {
     this.creator = obj.creator;
     this.lessons = obj.lessons;
     this.difficulty = obj.difficulty;
-    this.challengeCount = obj.challengeCount;
+    this.challengeCount = obj.challengeCount || 0;
     this.achievements =
       typeof obj.achievements == "undefined"
         ? []

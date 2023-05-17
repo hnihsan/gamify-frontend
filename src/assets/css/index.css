@@ -84,6 +84,26 @@ height: 100%;
   background-color: #86aadf !important;
 }
 
+.gamphy-mainbg-light {
+  background-color: #cbdbf1 !important;
+}
+
+.gamphy-maintext {
+  color: #86aadf !important;
+}
+
+.gamphy-secondtext {
+  color: #f5b737 !important;
+}
+
+.gamphy-secondtext-light {
+  color: #ffe6b3 !important;
+}
+
+.gamphy-thirdtext {
+  color: #f46a61 !important;
+}
+
 .gamphy-secondbg {
   background-color: #f5b737 !important;
 }
@@ -94,4 +114,147 @@ height: 100%;
 
 a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
   background-color: #f46a61 !important;
+}
+
+.prog-height {
+  height: 30px !important;
+}
+
+.prog-icon {
+  height: 50px;
+  position: absolute;
+  left: -20px;
+  top: -10px;
+}
+
+.prog-icon-last {
+  height: 50px;
+  position: absolute;
+  right: -20px;
+  top: -10px;
+}
+
+.avatar-position,
+.ava-frame-position {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.ava-frame-position {
+  z-index: 2;
+}
+
+.ava-container-sm {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+@media (min-width:541px) {
+  .ava-container-md {
+    width: 64px;
+    height: 64px;
+    position: relative;
+  }
+
+  .leaderboard-name {
+    display: flex;
+    justify-content: left;
+  }
+
+  .m-rank-text {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width:540px) {
+  .ava-container-md {
+    display: none;
+  }
+
+  .leaderboard-name {
+    display: flex;
+    justify-content: center;
+  }
+
+  .m-rank-text {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}
+
+
+
+.ava-container-lg {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto {
+  margin-right: auto !important;
+}
+
+.mx-auto {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.my-auto {
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+
+@media (min-width:1200px) {
+  .ava-user-text {
+    text-align: left !important;
+  }
+}
+
+@media (max-width:1200px) {
+  .ava-user-text {
+    text-align: center !important;
+  }
+}
+
+.round-corner {
+  border-radius: 25px;
+}
+
+.rank-img {
+  height: auto;
+  max-width: 100%;
+  margin-top: 12px;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.overlay-blocking {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #747474cc;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.overlay-blocking > img{
+  max-height: 64px;
+  width: auto;
+  margin: auto;
+}
+
+.p-auto {
+  padding-left: 1rem !important;
 }
