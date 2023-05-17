@@ -8,9 +8,10 @@ import GLBB3 from "~/src/assets/icons/achievements/GLBB3.png"; // @ts-ignore
 import GJB1 from "~/src/assets/icons/achievements/GJB1.png"; // @ts-ignore
 import GJB2 from "~/src/assets/icons/achievements/GJB2.png"; // @ts-ignore
 import GJB3 from "~/src/assets/icons/achievements/GJB3.png"; // @ts-ignore
-import GVA1 from "~/src/assets/icons/achievements/GVA1.png"; // @ts-ignore
-import GVA2 from "~/src/assets/icons/achievements/GVA2.png"; // @ts-ignore
-import GVA3 from "~/src/assets/icons/achievements/GVA3.png"; // @ts-ignore
+import GV1 from "~/src/assets/icons/achievements/GVA1.png"; // @ts-ignore
+import GV2 from "~/src/assets/icons/achievements/GVA2.png"; // @ts-ignore
+import GV3 from "~/src/assets/icons/achievements/GVA3.png"; // @ts-ignore
+import LOCK from "~/src/assets/icons/achievements/LOCK.png"; // @ts-ignore
 
 import egg from "~/src/assets/icons/levels/egg.png"; // @ts-ignore
 import cocoon from "~/src/assets/icons/levels/cocoon.png"; // @ts-ignore
@@ -85,9 +86,19 @@ export const AchievementsIconLibrary = {
   GJB1: GJB1,
   GJB2: GJB2,
   GJB3: GJB3,
-  GVA1: GVA1,
-  GVA2: GVA2,
-  GVA3: GVA3,
+  GV1: GV1,
+  GV2: GV2,
+  GV3: GV3,
+  LOCK: LOCK,
+};
+
+export const GetAchievementThumbnail = (
+  completedCodes: Array<string>,
+  code: string
+) => {
+  var isCompleted = completedCodes.includes(code);
+  if (isCompleted) return AchievementsIconLibrary[code];
+  else return AchievementsIconLibrary["LOCK"];
 };
 
 export const ProgressLevelTitle = {

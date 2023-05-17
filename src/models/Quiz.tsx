@@ -16,7 +16,6 @@ export class Quiz {
   _id: string;
   challengeId: string;
   question: string;
-  answerType: string;
   options: Array<QuizOptions>;
   correctAnswer: Array<number>;
   createdAt: Date;
@@ -32,7 +31,6 @@ export class Quiz {
     this._id = obj._id;
     this.challengeId = obj.challengeId;
     this.question = obj.question;
-    this.answerType = obj.answerType;
     this.options =
       typeof obj.options == "undefined"
         ? []

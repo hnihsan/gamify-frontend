@@ -258,3 +258,11 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
 .p-auto {
   padding-left: 1rem !important;
 }
+
+.border-solid {
+  border-style: solid !important;
+}
+
+.hover-pointer:hover {
+  cursor: pointer !important;
+}

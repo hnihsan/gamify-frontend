@@ -12,6 +12,10 @@ import Loading from "../shared/LoadingComponent";
 import Cookies from "js-cookie";
 import { AttemptHistoriesModal } from "./modals/SubjectDetailPartials/AttemptHistories";
 import { UserAttempt } from "../../../models/UserAttempt";
+import {
+  AchievementsIconLibrary,
+  GetAchievementThumbnail,
+} from "../../../lib/Tools";
 
 const SubjectDetail = () => {
   const { userSubjectId } = useParams();
@@ -247,14 +251,21 @@ const SubjectDetail = () => {
                                       <div className="card card-flush">
                                         <div className="card-body d-flex justify-content-sm-between align-items-center">
                                           <div className="d-flex flex-column col-12">
-                                            <div className="symbol symbol-100px symbol-fixed text-center mb-4">
+                                            <div className="symbol symbol-175px symbol-fixed text-center mb-4">
                                               <img
-                                                src={ach.image}
+                                                src={GetAchievementThumbnail(
+                                                  userSubject.completedChallengeCodes,
+                                                  ach.code
+                                                )}
                                                 alt={ach.title}
                                               />
                                             </div>
                                             <h4>{ach.title}</h4>
-                                            <p>{ach.description}</p>
+                                            <div
+                                              dangerouslySetInnerHTML={{
+                                                __html: ach.description,
+                                              }}
+                                            />
                                           </div>
                                         </div>
                                       </div>
@@ -264,7 +275,7 @@ const SubjectDetail = () => {
                               )}
                               {/*end::Tap pane*/}
                             </div>
-                            <ul className="nav nav-pills nav-pills-custom mb-3">
+                            <ul className="nav nav-pills nav-pills-custom my-3">
                               {userSubject.subject.achievements.map(
                                 (ach, index) => {
                                   return (
@@ -274,7 +285,7 @@ const SubjectDetail = () => {
                                     >
                                       <a
                                         className={
-                                          "nav-link d-flex justify-content-between flex-column flex-center overflow-hidden w-80px h-85px py-4 " +
+                                          "nav-link d-flex justify-content-between flex-column flex-center overflow-hidden w-80px h-85px py-4 bg-white border-solid hover-pointer " +
                                           (activeAchievement == ach._id
                                             ? "active"
                                             : "")
@@ -286,8 +297,12 @@ const SubjectDetail = () => {
                                       >
                                         <div className="nav-icon">
                                           <img
-                                            src={ach.image}
+                                            src={GetAchievementThumbnail(
+                                              userSubject.completedChallengeCodes,
+                                              ach.code
+                                            )}
                                             alt={ach.title}
+                                            style={{ width: "65px" }}
                                           />
                                           {/* <div className="symbol symbol-35px symbol-circle nav-icon">
                                     <span className="symbol-label bg-gray-700 text-inverse-dark fw-bolder">
@@ -306,7 +321,7 @@ const SubjectDetail = () => {
                         </>
                       )}
                     </div>
-                    <div className="col-12 mb-2">
+                    {/* <div className="col-12 mb-2">
                       <div className="d-flex align-items-center flex-column mt-3 w-100">
                         <h4 className="card-title fw-bolder text-">
                           Share your Journey
@@ -337,7 +352,7 @@ const SubjectDetail = () => {
                           </a>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

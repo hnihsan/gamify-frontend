@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { Subject } from "../../../../models/Subject";
 import Loading from "../../shared/LoadingComponent";
 import { getSubject } from "../../../../services/GetSubject";
+import { GetAchievementThumbnail } from "../../../../lib/Tools";
+
 class SubjectItemProp {
   userSubject: UserSubject;
   subject: Subject;
@@ -23,7 +25,7 @@ export const SubjectItem = (props: SubjectItemProp) => {
           <div className="card-title d-flex flex-column">
             {/* Title Section */}
             <span className="fs-2hx fw-bolder text-dark me-2 lh-1">
-              {subject.title}
+              {subject.shortTitle}
             </span>
             <span className="text-white pt-1 fw-bold fs-6">
               {subject.creator}
@@ -70,38 +72,47 @@ export const SubjectItem = (props: SubjectItemProp) => {
             </div>
           </div>
           {/*end::Progress*/}
-          {/*begin::Title*/}
-          <span className="fs-6 fw-boldest text-gray-800 d-block mb-2">
-            Available Achievements
-          </span>
-          {/*end::Title*/}
-          {/*begin::Achievement group*/}
-          <div className="symbol-group symbol-hover">
-            {subject.achievements.slice(0, 5).map((ach) => {
-              return (
-                <div
-                  key={ach._id}
-                  className="symbol symbol-35px symbol-circle"
-                  data-bs-toggle="tooltip"
-                  title={ach.title}
-                >
-                  <img alt={ach.title} src={ach.image} />
-                </div>
-              );
-            })}
-            {subject.achievements.length - 5 > 0 ? (
-              <>
-                <a href="#" className="symbol symbol-35px symbol-circle">
-                  <span className="symbol-label bg-gray-900 text-gray-300 fs-8 fw-bolder">
-                    +{subject.achievements.length - 5}
-                  </span>
-                </a>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
-          {/*end::Users group*/}
+          {subject.achievements.length > 0 ? (
+            <>
+              <span className="fs-6 fw-boldest text-gray-800 d-block mb-2">
+                Achievements
+              </span>
+              <div className="symbol-group symbol-hover">
+                {subject.achievements.slice(0, 5).map((ach) => {
+                  return (
+                    <div
+                      key={ach._id}
+                      className="symbol symbol-35px symbol-circle"
+                      data-bs-toggle="tooltip"
+                      title={ach.title}
+                    >
+                      <img
+                        alt={ach.title}
+                        src={GetAchievementThumbnail(
+                          userSubject.completedChallengeCodes,
+                          ach.code
+                        )}
+                      />
+                    </div>
+                  );
+                })}
+                {subject.achievements.length - 5 > 0 ? (
+                  <>
+                    <a href="#" className="symbol symbol-35px symbol-circle">
+                      <span className="symbol-label bg-gray-900 text-gray-300 fs-8 fw-bolder">
+                        +{subject.achievements.length - 5}
+                      </span>
+                    </a>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+
           <div className="d-flex flex-column mt-3 w-100">
             <Link
               to={`/SubjectDetail/${userSubject._id}`}

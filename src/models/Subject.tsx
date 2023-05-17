@@ -4,6 +4,7 @@ import { Achievement } from "./Achievement";
 export class Subject {
   _id: string;
   title: string;
+  shortTitle: string;
   creator: string;
   lessons: string;
   difficulty: string;
@@ -14,6 +15,7 @@ export class Subject {
 
   constructor(obj: any) {
     this._id = obj._id;
+    this.shortTitle = obj.shortTitle;
     this.title = obj.title;
     this.creator = obj.creator;
     this.lessons = obj.lessons;

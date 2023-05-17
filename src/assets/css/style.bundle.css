@@ -46288,6 +46288,7 @@ code:not([class*=language-]) {
     z-index: 0;
     margin-left: -10px;
     border: 2px solid #fff;
+    background-color: white;
     transition: all .3s ease
 }
 
