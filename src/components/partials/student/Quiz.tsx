@@ -49,7 +49,10 @@ const Quizzes = () => {
   const navigate = useNavigate();
 
   const getUserId = () => Cookies.get("userId");
-  const getIsQa = () => Cookies.get("isQa");
+  const getIsQa = () => {
+    var str = Cookies.get("isQa");
+    return str == "true";
+  };
   const delay = (t) => new Promise((resolve) => setTimeout(resolve, t));
   const StartQuiz = async () => {
     var vm = new CreateInitialUserAttempt_VM({
@@ -64,7 +67,7 @@ const Quizzes = () => {
     var res = await createInitialUserAttempt(vm);
     setAttemptId(res.insertedId);
     setIsStarted(true);
-    delay(challenge.duration * 1000).then(() => SubmitQuiz(res.insertedId));
+    //delay(challenge.duration * 1000).then(() => SubmitQuiz(res.insertedId));
   };
   const SubmitQuiz = async (attemptId_input: string | null = null) => {
     console.log(

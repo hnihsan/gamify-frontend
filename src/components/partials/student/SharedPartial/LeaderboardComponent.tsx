@@ -60,7 +60,7 @@ export const LeaderboardComponent = (props: LeaderboardParams) => {
                     <span className="fs-2 fw-bolder">Name</span>
                   </th>
                   <th scope="col" className="text-center">
-                    <span className="fs-2 fw-bolder">Total Pts.</span>
+                    <span className="fs-2 fw-bolder">Pts.</span>
                   </th>
                 </tr>
               </thead>
@@ -88,7 +88,7 @@ export const LeaderboardComponent = (props: LeaderboardParams) => {
                       </td>
                       <td>
                         <h3 className="fs-4 fw-bolder m-rank-text text-center">
-                          {user.points}
+                          {user.points.toFixed(0)}
                           <span className="fs-6 fw-lighter">pts.</span>
                         </h3>
                       </td>
