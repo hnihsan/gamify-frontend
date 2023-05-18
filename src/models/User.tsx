@@ -10,6 +10,8 @@ export class User {
   progressLevel: string;
   avatarCode: string;
   frameCode: string;
+  isAdmin: boolean;
+  isQa: boolean;
   createdAt: Date;
   updatedAt: Date;
 
@@ -25,6 +27,8 @@ export class User {
     this.progressLevel = obj.progressLevel || "LEVEL_1";
     this.avatarCode = obj.avatarCode || "MALE1";
     this.frameCode = obj.frameCode || "FRAME11";
+    this.isAdmin = obj.isAdmin || false;
+    this.isQa = obj.isQa || false;
     this.createdAt = new Date(obj.createdAt);
     this.updatedAt = new Date(obj.updatedAt);
   }

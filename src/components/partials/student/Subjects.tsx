@@ -36,8 +36,10 @@ const Subjects = ({ userId }: SubjectProp) => {
       let meta = await getMetadata();
       let email = Cookies.get("email");
       let u = await getUser(email);
-      let r = await getUserRank(u._id);
       let l = await getLeaderboard(5);
+      let r = 0;
+      if (user.isQa) r = 999;
+      else r = await getUserRank(u._id);
       setUser(u);
       setRank(r);
       setLeaderboard(l);

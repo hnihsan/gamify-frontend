@@ -34,6 +34,7 @@ const Quizzes = () => {
   const { challengeId, subjectId } = useParams();
   const [activeQuiz, setActiveQuiz] = useState<string>("");
   const [quizzes, setQuizzes] = useState<Array<Quiz>>([]);
+  const [allQuiz, setAllQuiz] = useState<Array<Quiz>>([]);
   const [answers, setAnswers] = useState<Array<AnswerStatus>>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [isFinished, setIsFinished] = useState<boolean>(false);
@@ -48,6 +49,7 @@ const Quizzes = () => {
   const navigate = useNavigate();
 
   const getUserId = () => Cookies.get("userId");
+  const getIsQa = () => Cookies.get("isQa");
   const delay = (t) => new Promise((resolve) => setTimeout(resolve, t));
   const StartQuiz = async () => {
     var vm = new CreateInitialUserAttempt_VM({
@@ -124,13 +126,21 @@ const Quizzes = () => {
         setIsEligible(true); // Remove attempt count validation
 
         let qzs = await getQuizzes(challengeId);
-        let shuffledQzs: Array<Quiz> = shuffleArray(qzs);
-        let slicedQzs = shuffledQzs.slice(0, 3);
-        if (slicedQzs.length > 0) setActiveQuiz(slicedQzs[0]._id);
-        setQuizzes(slicedQzs);
+        setAllQuiz(qzs);
+        var finalQzs = qzs;
+        if (getIsQa()) {
+          setQuizzes(qzs);
+          if (qzs.length > 0) setActiveQuiz(qzs[0]._id);
+        } else {
+          let shuffledQzs: Array<Quiz> = shuffleArray(qzs);
+          let slicedQzs = shuffledQzs.slice(0, challenge.qCount);
+          if (slicedQzs.length > 0) setActiveQuiz(slicedQzs[0]._id);
+          setQuizzes(slicedQzs);
+          finalQzs = slicedQzs;
+        }
 
         let answers: Array<AnswerStatus> = [];
-        slicedQzs.forEach((qz) => {
+        finalQzs.forEach((qz) => {
           answers.push(new AnswerStatus(qz._id));
         });
 
@@ -166,6 +176,22 @@ const Quizzes = () => {
             <>
               <div className="tab-content min-h-100">
                 <CountDownTimerComponent duration={challenge.duration} />
+                {getIsQa() ? (
+                  <div className="row">
+                    <div className="col-12">
+                      <p className="fs-2 fw-lighter">
+                        Soal Tersedia :{" "}
+                        <span className="fw-bolder">{allQuiz.length}</span>
+                      </p>
+                      <p className="fs-2 fw-lighter">
+                        Soal Ditampilkan :{" "}
+                        <span className="fw-bolder">{challenge.qCount}</span>
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
                 {loading ? (
                   <Loading />
                 ) : (
@@ -185,6 +211,9 @@ const Quizzes = () => {
                               <div className="col-md-6 col-sm-12">
                                 <div className="card">
                                   <div className="card-body overflow-auto quiz-question-pane">
+                                    <div className="fs-5 fw-bolder">
+                                      Soal No. {qindex + 1}
+                                    </div>
                                     <div
                                       dangerouslySetInnerHTML={{
                                         __html: q.question,
@@ -202,7 +231,16 @@ const Quizzes = () => {
                                         {q.options.map((op, index) => {
                                           return (
                                             <>
-                                              <label className="btn btn-outline d-flex flex-stack text-start p-6 mb-5 btn-multiple-choice bg-white">
+                                              <label
+                                                className={
+                                                  "btn btn-outline d-flex flex-stack text-start p-6 mb-5 btn-multiple-choice " +
+                                                  (getIsQa()
+                                                    ? op.isAnswer
+                                                      ? "bg-success"
+                                                      : "bg-white"
+                                                    : "bg-white")
+                                                }
+                                              >
                                                 <div className="d-flex align-items-center me-2">
                                                   <div className="form-check form-check-custom form-check-solid form-check-primary me-6">
                                                     <input

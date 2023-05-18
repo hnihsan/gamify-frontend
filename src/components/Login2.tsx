@@ -45,6 +45,8 @@ const LoginComponent = () => {
     Cookies.set("email", credential.email);
     Cookies.set("fullname", credential.name);
     Cookies.set("imageUrl", credential.picture);
+    Cookies.set("isAdmin", user.isAdmin || false);
+    Cookies.set("isQa", user.isQa || false);
     window.location.reload();
     // refreshTokenSetup(res);
   };
