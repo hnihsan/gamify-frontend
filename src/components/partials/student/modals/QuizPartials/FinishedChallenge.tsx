@@ -1,18 +1,29 @@
 import React from "react";
 // @ts-ignore
 import winner from "~src/assets/media/illstrations/7.png"; // @ts-ignore
-import badge from "~src/assets/media/achievements/badge8.png";
+import loser from "~src/assets/media/illstrations/9.png"; // @ts-ignore
+import { AchievementsIconLibrary } from "../../../../../lib/Tools";
 const winnerBgImage = {
   backgroundImage: "url(" + winner + ")",
+};
+
+const loserBgImage = {
+  backgroundImage: "url(" + loser + ")",
 };
 
 interface modalProp {
   onContinue: () => void;
   score: number;
   isPassed: boolean;
+  challengeCode: string;
 }
 
-const ModalFinishedChallenge = ({ onContinue, score, isPassed }: modalProp) => {
+const ModalFinishedChallenge = ({
+  onContinue,
+  score,
+  isPassed,
+  challengeCode,
+}: modalProp) => {
   return (
     <>
       <div style={{ zIndex: 109 }} className="drawer-overlay"></div>
@@ -35,9 +46,14 @@ const ModalFinishedChallenge = ({ onContinue, score, isPassed }: modalProp) => {
                 {/*begin::Logo*/}
                 <div
                   className="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-150px min-h-lg-350px"
-                  style={winnerBgImage}
+                  style={isPassed ? winnerBgImage : loserBgImage}
                 ></div>
-                <h1 className="fw-bold fs-1qx text-gray-800">Your score:</h1>
+                <div className="fw-bold fs-3 text-muted mb-7">
+                  {isPassed
+                    ? "Wah selamat! Kamu berhasil menyelesaikan tantangan ini!"
+                    : "Ayo tetap semangat! Latihan lebih keras lagi ya"}
+                </div>
+                <h1 className="fw-bold fs-1qx text-gray-800">Skor:</h1>
                 <h1
                   className={
                     "fw-bolder fs-3qx " +
@@ -47,25 +63,26 @@ const ModalFinishedChallenge = ({ onContinue, score, isPassed }: modalProp) => {
                   {score.toFixed(0)}
                 </h1>
 
-                <div className="fw-bold fs-3 text-muted mb-7">
-                  {isPassed
-                    ? "Congratulations! You pass this Challenge."
-                    : "You can do it better next time!"}
-                </div>
-
                 {/*begin::Action*/}
-                <div className="text-gray-700 fw-bold fs-4 pt-7">
-                  You also achieve a badge for
-                </div>
-                <div className="text-primary fw-bolder mb-4">
-                  Complete the Challenge with a perfect Score
-                </div>
-                <div className="symbol symbol-100px symbol-fixed text-center mb-4">
-                  <img src={badge} />
-                </div>
+                {AchievementsIconLibrary[challengeCode] && isPassed ? (
+                  <>
+                    <div className="text-gray-700 fw-bold fs-4 pt-7">
+                      Kamu mendapatkan Achievement untuk:
+                    </div>
+                    <div className="text-primary fw-bolder mb-4">
+                      Menuntaskan Challenge di atas passing grade
+                    </div>
+                    <div className="symbol symbol-100px symbol-fixed text-center">
+                      <img src={AchievementsIconLibrary[challengeCode]} />
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+
                 {/*end::Action*/}
               </div>
-              <div className="d-flex flex-center flex-row-fluid pt-12">
+              <div className="d-flex flex-center flex-row-fluid ">
                 <button
                   onClick={() => onContinue()}
                   className="btn btn-primary"

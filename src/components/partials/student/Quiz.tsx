@@ -41,7 +41,7 @@ const Quizzes = () => {
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [attemptId, setAttemptId] = useState<string | null>(null);
   const [challenge, setChallenge] = useState<Challenge>(new Challenge({}));
-  const [isEligible, setIsEligible] = useState<boolean>(true);
+  const [isEligible, setIsEligible] = useState<boolean>(false);
   const [playerScore, setPlayerScore] = useState<number>(0);
   const [isChlPassed, setIsChlPassed] = useState<boolean>(false);
   const isSubmitted = useRef(false);
@@ -65,9 +65,13 @@ const Quizzes = () => {
       passingGrade: challenge.passingScore,
     });
     var res = await createInitialUserAttempt(vm);
+    console.log(res);
     setAttemptId(res.insertedId);
     setIsStarted(true);
-    //delay(challenge.duration * 1000).then(() => SubmitQuiz(res.insertedId));
+    delay(challenge.duration * 1000).then(() => SubmitQuiz(res.insertedId));
+    // delay(5000).then(() =>
+    //   console.log("TIME OVER - TRIGGERED " + res.insertedId)
+    // );
   };
   const SubmitQuiz = async (attemptId_input: string | null = null) => {
     console.log(
@@ -125,8 +129,6 @@ const Quizzes = () => {
       if (typeof challengeId == "string") {
         let challenge = await getChallengeById(challengeId, getUserId());
         setChallenge(challenge);
-        //let isEligible = challenge.attemptsCount < challenge.attemptLimit;
-        setIsEligible(true); // Remove attempt count validation
 
         let qzs = await getQuizzes(challengeId);
         setAllQuiz(qzs);
@@ -158,10 +160,14 @@ const Quizzes = () => {
   useEffect(() => {
     window.onbeforeunload = function () {
       if (!isFinished) {
-        return "You Quiz is not finished! Are you sure to navigate away? Your progress won't be saved, but your attempt still counted.";
+        return "Yoru Quiz is not finished! Are you sure to navigate away? Your progress won't be saved, but your attempt still counted.";
       }
     };
   }, [isFinished]);
+
+  useEffect(() => {
+    if (quizzes.length > 0) setIsEligible(true);
+  }, [quizzes]);
 
   return (
     <>
@@ -355,6 +361,7 @@ const Quizzes = () => {
           score={playerScore}
           isPassed={isChlPassed}
           onContinue={() => navigate(-1)}
+          challengeCode={challenge.code}
         />
       ) : (
         <></>

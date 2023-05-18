@@ -25,47 +25,34 @@ export const PromptStartChallenge = ({
       >
         <div className="modal-dialog vertically-middle" role="document">
           {isEligible ? (
-            <>
-              <div className="modal-content">
-                <div className="modal-body text-center">
-                  <h3>Start the Challenge?</h3>
-                </div>
-                <div className="modal-footer justify-content-center">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => onNotReady()}
-                  >
-                    <b>No, Go back!</b>
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={() => onStartChallenge()}
-                  >
-                    <b>Yes, let's Start!</b>
-                  </button>
-                </div>
+            <div className="modal-content">
+              <div className="modal-body text-center">
+                <h3>Start the Challenge?</h3>
               </div>
-            </>
+              <div className="modal-footer justify-content-center">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => onNotReady()}
+                >
+                  <b>No, Go back!</b>
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={() => onStartChallenge()}
+                >
+                  <b>Yes, let's Start!</b>
+                </button>
+              </div>
+            </div>
           ) : (
-            <>
-              <div className="modal-content">
-                <div className="modal-body text-center">
-                  <h3>Attempt Limit Reached!</h3>
-                  <p>You're unable to take this Challenge anymore.</p>
-                </div>
-                <div className="modal-footer justify-content-center">
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={() => onNotReady()}
-                  >
-                    <b>Back to Challenge list!</b>
-                  </button>
-                </div>
+            <div className="modal-content">
+              <div className="modal-body text-center">
+                <h3>Memuat ..</h3>
+                <p>Mempersiapkan quiz, harap tunggu sebentar!</p>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>
