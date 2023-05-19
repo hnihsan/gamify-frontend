@@ -100,6 +100,10 @@ height: 100%;
   color: #ffe6b3 !important;
 }
 
+.gamphy-secondborder-light {
+  border-color: #ffe6b3 !important;
+}
+
 .gamphy-thirdtext {
   color: #f46a61 !important;
 }
@@ -187,11 +191,15 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
   }
 }
 
-
-
 .ava-container-lg {
   width: 100px;
   height: 100px;
+  position: relative;
+}
+
+.ava-container-xl {
+  width: 200px;
+  height: 200px;
   position: relative;
 }
 
@@ -247,6 +255,8 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
   z-index: 2;
   display: flex;
   justify-content: center;
+  top: 0;
+  left: 0;
 }
 
 .overlay-blocking > img{
@@ -265,4 +275,71 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
 
 .hover-pointer:hover {
   cursor: pointer !important;
+}
+
+.rounded-circle {
+  border-radius: 10rem;
+}
+
+.avatars-selection-border {
+  border-bottom: 1px solid !important;
+  border-top: 1px solid !important;
+  border-radius: .95rem !important;
+  border-width: 5px !important;
+  border-color: #ffe6b300 !important;
+  cursor: pointer;
+}
+
+.avatars-selection-border:hover {
+  border-color: #ffe6b3 !important;
+}
+
+.avatars-selection-border.active {
+  border-color: #4f55da !important;
+}
+
+.bg-barely {
+  background-color: #ffffff1a !important;
+}
+
+.overlay-blocking-profile {
+  position: absolute;
+  width: 95%;
+  height: 95%;
+  background-color: #747474cc;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  left: 0;
+}
+
+.overlay-blocking-profile > img{
+  max-height: 64px;
+  width: auto;
+  margin: auto;
+}
+
+.overlay-blocking-border {
+  border-bottom: 1px solid !important;
+  border-top: 1px solid !important;
+  border-radius: .95rem !important;
+  border-color: #747474cc !important;
+  cursor: not-allowed;
+}
+
+@media (max-width:500px) {
+  .profile-input {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width:501px) {
+  .profile-input {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

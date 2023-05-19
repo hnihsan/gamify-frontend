@@ -3,6 +3,8 @@ import {
   ProgressLevelTitle,
   ProgressLevelIcon,
   ProgressBarIcons,
+  AvatarsPic,
+  FramesPic,
 } from "../../../../lib/Tools";
 // @ts-ignore
 import ava from "~/src/assets/avatars/male/8.png";
@@ -40,8 +42,14 @@ export const ProgressComponent = (props: ProgressParams) => {
         <div className="row">
           <div className="col-lg-4">
             <div className="ava-container-lg mx-auto">
-              <img src={ava} className="avatar-position" />
-              <img src={ava_frame} className="ava-frame-position" />
+              <img
+                src={AvatarsPic[user.avatarCode]}
+                className="avatar-position"
+              />
+              <img
+                src={FramesPic[user.frameCode]}
+                className="ava-frame-position"
+              />
             </div>
           </div>
           <div className="col-lg-8 my-auto ava-user-text">
@@ -141,7 +149,7 @@ export const ProgressComponent = (props: ProgressParams) => {
             <h3 className="fs-4 fw-lighter">
               Butuh{" "}
               <span className="gamphy-maintext fw-bolder">
-                {meta.maxPoints - user.points}
+                {(meta.maxPoints - user.points).toFixed(0)}
               </span>{" "}
               poin lagi untuk ke peringkat selanjutnya!
             </h3>

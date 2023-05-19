@@ -83,7 +83,7 @@ export const LeaderboardComponent = (props: LeaderboardParams) => {
                               className="ava-frame-position"
                             />
                           </div>
-                          <h3 className="fs-4 m-rank-text">{user.fullname}</h3>
+                          <h3 className="fs-4 m-rank-text">{user.nickname}</h3>
                         </div>
                       </td>
                       <td>

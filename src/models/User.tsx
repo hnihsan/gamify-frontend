@@ -1,6 +1,7 @@
 export class User {
   _id: string;
   fullname: string;
+  nickname: string;
   email: string;
   phone: string;
   organization: string;
@@ -18,6 +19,7 @@ export class User {
   constructor(obj: any) {
     this._id = obj._id;
     this.fullname = obj.fullname;
+    this.nickname = obj.nickname;
     this.email = obj.email;
     this.phone = obj.phone;
     this.organization = obj.organization;
@@ -35,6 +37,7 @@ export class User {
 }
 
 export class NewUser {
+  nickname: string;
   fullname: string;
   email: string;
   phone: string;
@@ -43,6 +46,7 @@ export class NewUser {
 
   constructor(obj: any) {
     this.fullname = obj.fullname;
+    this.nickname = obj.nickname;
     this.email = obj.email.trim().toLowerCase();
     this.phone = obj.phone;
     this.organization = obj.organization;
@@ -50,9 +54,23 @@ export class NewUser {
   }
 }
 
+export class UpdateUserModel {
+  nickname: string;
+  fullname: string;
+  avatarCode: string;
+  frameCode: string;
+
+  constructor(obj: any) {
+    this.fullname = obj.fullname;
+    this.nickname = obj.nickname || obj.fullname?.split(" ")[0];
+    this.avatarCode = obj.avatarCode;
+    this.frameCode = obj.frameCode;
+  }
+}
+
 export class UserLeaderboard {
   _id: string;
-  fullname: string;
+  nickname: string;
   imageUrl: string;
   points: number;
   avatarCode: string;
@@ -60,7 +78,7 @@ export class UserLeaderboard {
 
   constructor(obj: any) {
     this._id = obj._id;
-    this.fullname = obj.fullname;
+    this.nickname = obj.nickname;
     this.imageUrl = obj.imageUrl;
     this.points = obj.points || 0;
     this.avatarCode = obj.avatarCode || "MALE1";

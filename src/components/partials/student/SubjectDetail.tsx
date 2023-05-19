@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Challenge } from "../../../models/Challenge";
-// @ts-ignore
-import achv_1 from "~/src/assets/media/achievements/badge1.png";
 import { getChallenges } from "../../../services/GetChallenges";
 import { ChallengeItem } from "./SubjectDetailPart/ChallengeItem";
 import { UserSubject } from "../../../models/UserSubject";
@@ -304,11 +302,6 @@ const SubjectDetail = () => {
                                             alt={ach.title}
                                             style={{ width: "65px" }}
                                           />
-                                          {/* <div className="symbol symbol-35px symbol-circle nav-icon">
-                                    <span className="symbol-label bg-gray-700 text-inverse-dark fw-bolder">
-                                      ?
-                                    </span>
-                                  </div> */}
                                         </div>
                                         <span className="bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary"></span>
                                       </a>

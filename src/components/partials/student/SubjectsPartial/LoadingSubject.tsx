@@ -1,7 +1,13 @@
 import React from "react";
 import Loading from "../../shared/LoadingComponent";
 
-export const LoadingSubject = () => {
+class SubjectItemProp {
+  message: string;
+}
+
+export const LoadingSubject = ({
+  message = "Memuat materi",
+}: SubjectItemProp) => {
   return (
     <div className="col-12">
       {/*begin::Card widget 7*/}
@@ -12,7 +18,7 @@ export const LoadingSubject = () => {
           <div className="card-title d-flex flex-column">
             {/*begin::Subject Title*/}
             <span className="fs-2x fw-lighter text-dark me-2 lh-1">
-              Memuat materi ..
+              {message}&nbsp;..
             </span>
             {/*end::Subject Title*/}
           </div>

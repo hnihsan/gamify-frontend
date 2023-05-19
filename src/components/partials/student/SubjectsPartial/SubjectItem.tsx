@@ -97,13 +97,11 @@ export const SubjectItem = (props: SubjectItemProp) => {
                   );
                 })}
                 {subject.achievements.length - 5 > 0 ? (
-                  <>
-                    <a href="#" className="symbol symbol-35px symbol-circle">
-                      <span className="symbol-label bg-gray-900 text-gray-300 fs-8 fw-bolder">
-                        +{subject.achievements.length - 5}
-                      </span>
-                    </a>
-                  </>
+                  <a href="#" className="symbol symbol-35px symbol-circle">
+                    <span className="symbol-label bg-gray-900 text-gray-300 fs-8 fw-bolder">
+                      +{subject.achievements.length - 5}
+                    </span>
+                  </a>
                 ) : (
                   <></>
                 )}

@@ -19,6 +19,7 @@ const StudentSideNav = ({ isNavDisplayed }: sideNavProps) => {
     Cookies.remove("email");
     Cookies.remove("imageUrl");
     Cookies.remove("fullname");
+    Cookies.remove("isQa");
 
     console.log(Cookies.get());
     window.location.href = "/";
@@ -65,6 +66,14 @@ const StudentSideNav = ({ isNavDisplayed }: sideNavProps) => {
                     <span className="bullet bullet-dot"></span>
                   </span>
                   <span className="menu-title">Dashboard</span>
+                </Link>
+              </div>
+              <div className="menu-item">
+                <Link className="menu-link" to="/Profile">
+                  <span className="menu-bullet">
+                    <span className="bullet bullet-dot"></span>
+                  </span>
+                  <span className="menu-title">Profile</span>
                 </Link>
               </div>
             </div>

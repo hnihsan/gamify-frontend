@@ -7,6 +7,7 @@ import SubjectDetail from "./partials/student/SubjectDetail";
 import Quizzes from "./partials/student/Quiz";
 import Cookies from "js-cookie";
 import { Routes, Route } from "react-router-dom";
+import Profile from "./partials/student/Profile";
 
 const Student: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
@@ -47,6 +48,7 @@ const Student: React.FC = () => {
                     path="/"
                     element={<StudentSubjects userId={getUserId()} />}
                   />
+                  <Route path="/Profile" element={<Profile />} />
                   <Route
                     path="SubjectDetail/:userSubjectId"
                     element={<SubjectDetail />}

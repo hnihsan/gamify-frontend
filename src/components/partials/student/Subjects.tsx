@@ -30,7 +30,6 @@ const Subjects = ({ userId }: SubjectProp) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    console.log(userId);
     const fetchUserSubjects = async () => {
       let uss = await getUserSubjects(userId);
       let meta = await getMetadata();
@@ -56,66 +55,62 @@ const Subjects = ({ userId }: SubjectProp) => {
   }, [isDataReady]);
 
   return (
-    <>
-      {/*begin::Content*/}
-      <div
-        className="content d-flex flex-column flex-column-fluid"
-        id="kt_content"
-      >
-        {/*begin::Container*/}
-        <div id="kt_content_container" className="container-fluid mt-4">
-          {/* begin section header */}
-          <div className="my-2">
-            <h2 className="fs-2hx gamphy-maintext">
-              Daftar Materi&nbsp;
-              <i className="fa fa-question-circle fs-2"></i>
-            </h2>
-            <h2 className="fs-4 fw-lighter">
-              Silakan pilih materi yang ingin kamu ikuti
-            </h2>
-            <hr />
-          </div>
-          {/* end section header */}
-          {/*begin::Row*/}
-          <div className="row">
-            <div className="col-xl-8">
-              <div className="row">
-                {loading ? (
-                  <LoadingSubject />
-                ) : userSubjects.length == 0 ? (
-                  <NoSubjectEnrolled />
-                ) : (
-                  userSubjects.map((userSubject) => {
-                    return (
-                      <SubjectItem
-                        key={userSubject._id}
-                        userSubject={userSubject}
-                        subject={userSubject.subject}
-                      />
-                    );
-                  })
-                )}
-              </div>
-            </div>
-            <div className="col-xl-4">
-              {loading ? (
-                <></>
-              ) : (
-                <ProgressComponent user={user} meta={metadata} rank={rank} />
-              )}
-              {loading ? (
-                <></>
-              ) : (
-                <LeaderboardComponent leaderboards={leaderboard} />
-              )}
-            </div>
-          </div>
-          {/*end::Row*/}
+    <div
+      className="content d-flex flex-column flex-column-fluid"
+      id="kt_content"
+    >
+      {/*begin::Container*/}
+      <div id="kt_content_container" className="container-fluid mt-4">
+        {/* begin section header */}
+        <div className="my-2">
+          <h2 className="fs-2hx gamphy-maintext">
+            Daftar Materi&nbsp;
+            <i className="fa fa-question-circle fs-2"></i>
+          </h2>
+          <h2 className="fs-4 fw-lighter">
+            Silakan pilih materi yang ingin kamu ikuti
+          </h2>
+          <hr />
         </div>
-        {/*end::Container*/}
+        {/* end section header */}
+        {/*begin::Row*/}
+        <div className="row">
+          <div className="col-xl-8">
+            <div className="row">
+              {loading ? (
+                <LoadingSubject message="Memuat materi" />
+              ) : userSubjects.length == 0 ? (
+                <NoSubjectEnrolled />
+              ) : (
+                userSubjects.map((userSubject) => {
+                  return (
+                    <SubjectItem
+                      key={userSubject._id}
+                      userSubject={userSubject}
+                      subject={userSubject.subject}
+                    />
+                  );
+                })
+              )}
+            </div>
+          </div>
+          <div className="col-xl-4">
+            {loading ? (
+              <></>
+            ) : (
+              <ProgressComponent user={user} meta={metadata} rank={rank} />
+            )}
+            {loading ? (
+              <></>
+            ) : (
+              <LeaderboardComponent leaderboards={leaderboard} />
+            )}
+          </div>
+        </div>
+        {/*end::Row*/}
       </div>
-      {/*end::Content*/}
-    </>
+      {/*end::Container*/}
+    </div>
   );
 };
 

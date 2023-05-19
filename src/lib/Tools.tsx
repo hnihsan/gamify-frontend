@@ -76,6 +76,18 @@ import FRAME47 from "~/src/assets/avatars/frames/level_4/7.png"; // @ts-ignore
 import FRAME48 from "~/src/assets/avatars/frames/level_4/8.png"; // @ts-ignore
 import { User } from "../models/User";
 
+class FramesPicModel {
+  src: any;
+  level: string;
+  code: string;
+
+  constructor(code: string, src: any, level: string) {
+    this.code = code;
+    this.src = src;
+    this.level = level;
+  }
+}
+
 export const AchievementsIconLibrary = {
   GLB1: GLB1,
   GLB2: GLB2,
@@ -151,7 +163,6 @@ export const FramesPic = {
   FRAME16: FRAME16,
   FRAME17: FRAME17,
   FRAME18: FRAME18,
-
   FRAME21: FRAME21,
   FRAME22: FRAME22,
   FRAME23: FRAME23,
@@ -160,7 +171,6 @@ export const FramesPic = {
   FRAME26: FRAME26,
   FRAME27: FRAME27,
   FRAME28: FRAME28,
-
   FRAME31: FRAME31,
   FRAME32: FRAME32,
   FRAME33: FRAME33,
@@ -169,7 +179,6 @@ export const FramesPic = {
   FRAME36: FRAME36,
   FRAME37: FRAME37,
   FRAME38: FRAME38,
-
   FRAME41: FRAME41,
   FRAME42: FRAME42,
   FRAME43: FRAME43,
@@ -179,6 +188,41 @@ export const FramesPic = {
   FRAME47: FRAME47,
   FRAME48: FRAME48,
 };
+
+export const FramesSelection: Array<FramesPicModel> = [
+  new FramesPicModel("FRAME11", FRAME11, "LEVEL_1"),
+  new FramesPicModel("FRAME12", FRAME12, "LEVEL_1"),
+  new FramesPicModel("FRAME13", FRAME13, "LEVEL_1"),
+  new FramesPicModel("FRAME14", FRAME14, "LEVEL_1"),
+  new FramesPicModel("FRAME15", FRAME15, "LEVEL_1"),
+  new FramesPicModel("FRAME16", FRAME16, "LEVEL_1"),
+  new FramesPicModel("FRAME17", FRAME17, "LEVEL_1"),
+  new FramesPicModel("FRAME18", FRAME18, "LEVEL_1"),
+  new FramesPicModel("FRAME21", FRAME21, "LEVEL_2"),
+  new FramesPicModel("FRAME22", FRAME22, "LEVEL_2"),
+  new FramesPicModel("FRAME23", FRAME23, "LEVEL_2"),
+  new FramesPicModel("FRAME24", FRAME24, "LEVEL_2"),
+  new FramesPicModel("FRAME25", FRAME25, "LEVEL_2"),
+  new FramesPicModel("FRAME26", FRAME26, "LEVEL_2"),
+  new FramesPicModel("FRAME27", FRAME27, "LEVEL_2"),
+  new FramesPicModel("FRAME28", FRAME28, "LEVEL_2"),
+  new FramesPicModel("FRAME31", FRAME31, "LEVEL_3"),
+  new FramesPicModel("FRAME32", FRAME32, "LEVEL_3"),
+  new FramesPicModel("FRAME33", FRAME33, "LEVEL_3"),
+  new FramesPicModel("FRAME34", FRAME34, "LEVEL_3"),
+  new FramesPicModel("FRAME35", FRAME35, "LEVEL_3"),
+  new FramesPicModel("FRAME36", FRAME36, "LEVEL_3"),
+  new FramesPicModel("FRAME37", FRAME37, "LEVEL_3"),
+  new FramesPicModel("FRAME38", FRAME38, "LEVEL_3"),
+  new FramesPicModel("FRAME41", FRAME41, "LEVEL_4"),
+  new FramesPicModel("FRAME42", FRAME42, "LEVEL_4"),
+  new FramesPicModel("FRAME43", FRAME43, "LEVEL_4"),
+  new FramesPicModel("FRAME44", FRAME44, "LEVEL_4"),
+  new FramesPicModel("FRAME45", FRAME45, "LEVEL_4"),
+  new FramesPicModel("FRAME46", FRAME46, "LEVEL_4"),
+  new FramesPicModel("FRAME47", FRAME47, "LEVEL_4"),
+  new FramesPicModel("FRAME48", FRAME48, "LEVEL_4"),
+];
 
 export function shuffleArray(array) {
   for (var i = array.length - 1; i > 0; i--) {
