@@ -60,12 +60,12 @@ const SubjectDetail = ({ onNavigateFn }: Props) => {
     fetchUserSubject();
   }, []);
 
-  useEffect(() => {
-    const fetchChallenges = async () => {
-      let chs = await getChallenges(userSubject.subjectId, getUserId());
-      setChallenges(chs);
-    };
+  const fetchChallenges = async () => {
+    let chs = await getChallenges(userSubject.subjectId, getUserId());
+    setChallenges(chs);
+  };
 
+  useEffect(() => {
     fetchChallenges();
   }, [userSubject]);
 
@@ -105,7 +105,7 @@ const SubjectDetail = ({ onNavigateFn }: Props) => {
                   href="#lessons_tab"
                 >
                   <i className="bi-book-fill"></i>&nbsp;
-                  <span className="fs-4 fw-bolder">Lessons</span>
+                  <span className="fs-4 fw-bolder">Pembelajaran</span>
                 </a>
               </li>
             </ul>
@@ -135,7 +135,7 @@ const SubjectDetail = ({ onNavigateFn }: Props) => {
                         </div>
                       </div>
                     ) : challenges.length == 0 ? (
-                      <NoChallenge />
+                      <NoChallenge onReloadFn={() => fetchChallenges()} />
                     ) : (
                       challenges.map((ch) => {
                         return (

@@ -356,7 +356,7 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
 
 .btn.gamphy-mainbg.active > i {
   color: #ffffff !important;
-  font-size: calc(1.275rem + .3vw) !important
+  font-size: calc(1.275rem + .3vw)
 }
 
 .btn.gamphy-mainbg {
@@ -367,7 +367,7 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
 
 .btn.gamphy-mainbg > i {
   color: #86aadf !important;
-  font-size: calc(1.275rem + .3vw) !important
+  font-size: calc(1.275rem + .3vw)
 }
 
 .btn.gamphy-mainbg:hover {
@@ -378,7 +378,7 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
 
 .btn.gamphy-mainbg:hover > i {
   color: #ffffff !important;
-  font-size: calc(1.275rem + .3vw) !important
+  font-size: calc(1.275rem + .3vw)
 }
 
 /* background-color: #86aadf !important;
