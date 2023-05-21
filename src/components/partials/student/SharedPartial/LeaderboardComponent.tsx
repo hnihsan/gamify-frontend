@@ -67,7 +67,7 @@ export const LeaderboardComponent = (props: LeaderboardParams) => {
               <tbody>
                 {leaderboards.map((user, idx) => {
                   return (
-                    <tr>
+                    <tr key={idx}>
                       <td scope="row" className="text-center p-auto">
                         {RankNumberComponent(idx)}
                       </td>
@@ -87,7 +87,7 @@ export const LeaderboardComponent = (props: LeaderboardParams) => {
                         </div>
                       </td>
                       <td>
-                        <h3 className="fs-4 fw-bolder m-rank-text text-center">
+                        <h3 className="fs-4 fw-bolder m-rank-text text-center my-auto">
                           {user.points.toFixed(0)}
                           <span className="fs-6 fw-lighter">pts.</span>
                         </h3>

@@ -20,6 +20,8 @@ import { useNavigate } from "react-router-dom";
 import CountDownTimerComponent from "../shared/CountdownComponent";
 import { getChallengeById } from "../../../services/GetChallengeById";
 import { Challenge } from "../../../models/Challenge";
+import { Achievement } from "../../../models/Achievement";
+import { getAllAchievements } from "../../../services/GetAllAchievements";
 
 class AnswerStatus {
   quizId: string;
@@ -30,8 +32,12 @@ class AnswerStatus {
   }
 }
 
-const Quizzes = () => {
-  const { challengeId, subjectId } = useParams();
+class Props {
+  onNavigateFn: () => void;
+}
+
+const Quizzes = ({ onNavigateFn }: Props) => {
+  const { userSubjectId, challengeId, subjectId } = useParams();
   const [activeQuiz, setActiveQuiz] = useState<string>("");
   const [quizzes, setQuizzes] = useState<Array<Quiz>>([]);
   const [allQuiz, setAllQuiz] = useState<Array<Quiz>>([]);
@@ -45,13 +51,16 @@ const Quizzes = () => {
   const [playerScore, setPlayerScore] = useState<number>(0);
   const [isChlPassed, setIsChlPassed] = useState<boolean>(false);
   const isSubmitted = useRef(false);
+  const [achievement, setAchievement] = useState<Achievement>(
+    new Achievement({})
+  );
 
   const navigate = useNavigate();
 
   const getUserId = () => Cookies.get("userId");
   const getIsQa = () => {
-    var str = Cookies.get("isQa");
-    return str == "true";
+    var str = Cookies.get("1ff6a62379dcf46ec91fd65451a959fc");
+    return str == "cebf9416c97f4808312f215c569c73c4";
   };
   const delay = (t) => new Promise((resolve) => setTimeout(resolve, t));
   const StartQuiz = async () => {
@@ -65,20 +74,11 @@ const Quizzes = () => {
       passingGrade: challenge.passingScore,
     });
     var res = await createInitialUserAttempt(vm);
-    console.log(res);
     setAttemptId(res.insertedId);
     setIsStarted(true);
     delay(challenge.duration * 1000).then(() => SubmitQuiz(res.insertedId));
-    // delay(5000).then(() =>
-    //   console.log("TIME OVER - TRIGGERED " + res.insertedId)
-    // );
   };
   const SubmitQuiz = async (attemptId_input: string | null = null) => {
-    console.log(
-      isSubmitted.current
-        ? "Already submitted, not run again"
-        : "Not yet submitted, lets go "
-    );
     if (isSubmitted.current) return;
 
     var correctAnswerCount = 0;
@@ -87,8 +87,6 @@ const Quizzes = () => {
       var quiz = quizzes.filter((q) => q._id == ans.quizId)[0];
       if (quiz.checkAnswer(ans.answer)) correctAnswerCount++;
     });
-
-    console.log("Score: " + correctAnswerCount + "/" + totalQuiz);
 
     var score = (correctAnswerCount / totalQuiz) * 100;
     setPlayerScore(score);
@@ -125,13 +123,19 @@ const Quizzes = () => {
   };
 
   useEffect(() => {
+    onNavigateFn();
     const fetchData = async () => {
       if (typeof challengeId == "string") {
         let challenge = await getChallengeById(challengeId, getUserId());
         setChallenge(challenge);
 
+        let achievements: Array<Achievement> = await getAllAchievements();
+        let ach = achievements.filter((x) => x.code == challenge.code)[0];
+        setAchievement(ach);
+
         let qzs = await getQuizzes(challengeId);
         setAllQuiz(qzs);
+
         var finalQzs = qzs;
         if (getIsQa()) {
           setQuizzes(qzs);
@@ -235,7 +239,7 @@ const Quizzes = () => {
                                 <div className="row">
                                   <div className="col-12 mb-2">
                                     <div className="d-flex flex-column mt-3 w-100">
-                                      <h2>Choose the right answer</h2>
+                                      <h2>Pilih jawaban yang benar!</h2>
                                       <div data-kt-buttons="true">
                                         {q.options.map((op, index) => {
                                           return (
@@ -362,6 +366,7 @@ const Quizzes = () => {
           isPassed={isChlPassed}
           onContinue={() => navigate(-1)}
           challengeCode={challenge.code}
+          achievement={achievement}
         />
       ) : (
         <></>

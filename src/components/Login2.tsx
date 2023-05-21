@@ -2,7 +2,7 @@ import jwtDecode from "jwt-decode";
 import React, { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
 // @ts-ignore
-import logo from "~/src/assets/logo.png";
+import logo from "~/src/assets/logo.png"; // @ts-ignore
 import { getUser } from "../services/GetUser";
 import { NewUser } from "../models/User";
 import { InsertResponse } from "../models/ApiModel";
@@ -26,10 +26,10 @@ const LoginComponent = () => {
 
   const onSuccessLogin = async (res) => {
     var credential: any = jwtDecode(res.credential);
-    console.log(credential);
-
+    let isNewUser: boolean = false;
     var user = await getUser(credential.email);
     if (user._id == undefined) {
+      isNewUser = true;
       var newUser: NewUser = new NewUser({
         fullname: credential.name,
         email: credential.email,
@@ -45,9 +45,23 @@ const LoginComponent = () => {
     Cookies.set("email", credential.email);
     Cookies.set("fullname", credential.name);
     Cookies.set("imageUrl", credential.picture);
-    Cookies.set("isAdmin", user.isAdmin || false);
-    Cookies.set("isQa", user.isQa || false);
-    window.location.reload();
+    Cookies.set(
+      "5fdedfe381eef204ab3354d244885a40",
+      user.isAdmin
+        ? "cebf9416c97f4808312f215c569c73c4"
+        : "93140e10f9bcb1da4478c269e1e0c2fa"
+    );
+    Cookies.set(
+      "1ff6a62379dcf46ec91fd65451a959fc",
+      user.isQa
+        ? "cebf9416c97f4808312f215c569c73c4"
+        : "93140e10f9bcb1da4478c269e1e0c2fa"
+    );
+    Cookies.set("popupWelcome", true);
+    Cookies.set("popupSubjectDetail", true);
+
+    if (isNewUser) window.location.href = "/Profile";
+    else window.location.reload();
     // refreshTokenSetup(res);
   };
 
@@ -69,7 +83,6 @@ const LoginComponent = () => {
             width: 300,
           });
         } else {
-          console.log("no script loaded");
           setLoadScriptAttempt(loadScriptAttempt + 1);
         }
       })
@@ -90,11 +103,13 @@ const LoginComponent = () => {
       <div className="container-fluid h-custom">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-md-9 col-lg-6 col-xl-5">
-            <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-              className="img-fluid"
-              alt="Sample image"
-            />
+            <video width="100%" height="auto" autoPlay loop muted>
+              <source
+                src={require("url:~/src/assets/media/login_illustration.mp4")}
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
           </div>
           <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <form>
@@ -107,10 +122,14 @@ const LoginComponent = () => {
                     style={{ height: "150px" }}
                   />
                 </a>
-                <h1 className="fw-bolder fs-2qx mt-4">Welcome to Gamphy</h1>
-                <p className="fw-bold fs-2">Hone your skill with Challenges</p>
+                <p className="fw-ligther fs-2">
+                  <i>Hone your skill with Challenges</i>
+                </p>
+                <p className="fs-3 fw-bolder mb-0">
+                  Login / Sign Up with Google
+                </p>
                 <div
-                  className="d-flex justify-content-center"
+                  className="d-flex justify-content-center mb-4"
                   ref={googleButton}
                 ></div>
               </div>

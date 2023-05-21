@@ -35,7 +35,7 @@ export const ProgressComponent = (props: ProgressParams) => {
   const [meta, setMeta] = useState<MetadataModel>(props.meta);
   const progressIcon = ProgressBarIcons[user.progressLevel];
   const progress_percent = (user.points / meta.maxPoints) * 100;
-  // console.log(user);
+
   return (
     <div className="card card-flush gamphy-secondbg">
       <div className="card-body">

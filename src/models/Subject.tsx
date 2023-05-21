@@ -9,6 +9,7 @@ export class Subject {
   lessons: string;
   difficulty: string;
   challengeCount: number;
+  order: number;
   achievements: Array<Achievement>;
   createdAt: Date;
   updatedAt: Date;
@@ -21,6 +22,7 @@ export class Subject {
     this.lessons = obj.lessons;
     this.difficulty = obj.difficulty;
     this.challengeCount = obj.challengeCount || 0;
+    this.order = obj.order || 0;
     this.achievements =
       typeof obj.achievements == "undefined"
         ? []

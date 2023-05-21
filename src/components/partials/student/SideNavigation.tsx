@@ -7,9 +7,10 @@ import { LoggedInModel } from "../../../models/LoggedInModel";
 
 interface sideNavProps {
   isNavDisplayed: boolean;
+  activePage: string;
 }
 
-const StudentSideNav = ({ isNavDisplayed }: sideNavProps) => {
+const StudentSideNav = ({ isNavDisplayed, activePage }: sideNavProps) => {
   const [loggedInUser, setLoggedInUser] = useState<LoggedInModel>(
     new LoggedInModel(Cookies.get())
   );
@@ -19,9 +20,11 @@ const StudentSideNav = ({ isNavDisplayed }: sideNavProps) => {
     Cookies.remove("email");
     Cookies.remove("imageUrl");
     Cookies.remove("fullname");
-    Cookies.remove("isQa");
+    Cookies.remove("5fdedfe381eef204ab3354d244885a40");
+    Cookies.remove("1ff6a62379dcf46ec91fd65451a959fc");
+    Cookies.remove("popupWelcome");
+    Cookies.remove("popupSubjectDetail");
 
-    console.log(Cookies.get());
     window.location.href = "/";
   };
 
@@ -61,7 +64,10 @@ const StudentSideNav = ({ isNavDisplayed }: sideNavProps) => {
               data-kt-menu="true"
             >
               <div className="menu-item">
-                <Link className="menu-link active" to="/">
+                <Link
+                  className={"menu-link " + (activePage == "" ? "active" : "")}
+                  to="/"
+                >
                   <span className="menu-bullet">
                     <span className="bullet bullet-dot"></span>
                   </span>
@@ -69,7 +75,12 @@ const StudentSideNav = ({ isNavDisplayed }: sideNavProps) => {
                 </Link>
               </div>
               <div className="menu-item">
-                <Link className="menu-link" to="/Profile">
+                <Link
+                  className={
+                    "menu-link " + (activePage == "Profile" ? "active" : "")
+                  }
+                  to="/Profile"
+                >
                   <span className="menu-bullet">
                     <span className="bullet bullet-dot"></span>
                   </span>

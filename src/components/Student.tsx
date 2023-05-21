@@ -8,20 +8,30 @@ import Quizzes from "./partials/student/Quiz";
 import Cookies from "js-cookie";
 import { Routes, Route } from "react-router-dom";
 import Profile from "./partials/student/Profile";
+import { HomeIntroductionModal } from "./partials/student/modals/QuizPartials/HomeIntroduction";
 
 const Student: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
   const [count, setCount] = useState(0);
   const getUserId = () => Cookies.get("userId");
+  const [navigateCount, setNavigateCount] = useState<number>(0);
+  const [arrayPath, setArrayPath] = useState<Array<string>>(
+    window.location.pathname.split("/")
+  );
 
   useEffect(() => {
     if (getUserId() == undefined) {
       window.location.reload();
     }
-    //console.log("Count is ticking: " + count);
+
     const timer = setTimeout(() => setCount(count + 1), 5000);
     return () => clearTimeout(timer);
   }, [count]);
+
+  useEffect(() => {
+    console.log("Navigated " + navigateCount + " times");
+    setArrayPath(window.location.pathname.split("/"));
+  }, [navigateCount]);
 
   return (
     <>
@@ -30,7 +40,10 @@ const Student: React.FC = () => {
         {/* <!--begin::Page--> */}
         <div className="page d-flex flex-row flex-column-fluid">
           {/* Side Navigation */}
-          <StudentSideNav isNavDisplayed={isNavOpen} />
+          <StudentSideNav
+            isNavDisplayed={isNavOpen}
+            activePage={arrayPath[1]}
+          />
           {/* Container (Content Wrapper) */}
           <div
             className="d-flex flex-column flex-row-fluid content-bg"
@@ -39,6 +52,7 @@ const Student: React.FC = () => {
             {/* Container (Content Wrapper) */}
             <StudentMainHeader
               handleToggleNav={() => setIsNavOpen(!isNavOpen)}
+              arrayPath={arrayPath}
             />
             {/* Content */}
             <Routes>
@@ -46,16 +60,42 @@ const Student: React.FC = () => {
                 <>
                   <Route
                     path="/"
-                    element={<StudentSubjects userId={getUserId()} />}
+                    element={
+                      <StudentSubjects
+                        userId={getUserId()}
+                        onNavigateFn={() => {
+                          setNavigateCount(navigateCount + 1);
+                          setIsNavOpen(false);
+                        }}
+                      />
+                    }
                   />
-                  <Route path="/Profile" element={<Profile />} />
+                  <Route
+                    path="/Profile"
+                    element={
+                      <Profile
+                        onNavigateFn={() => {
+                          setNavigateCount(navigateCount + 1);
+                          setIsNavOpen(false);
+                        }}
+                      />
+                    }
+                  />
                   <Route
                     path="SubjectDetail/:userSubjectId"
-                    element={<SubjectDetail />}
+                    element={
+                      <SubjectDetail
+                        onNavigateFn={() => setNavigateCount(navigateCount + 1)}
+                      />
+                    }
                   />
                   <Route
-                    path="Quiz/:subjectId/:challengeId"
-                    element={<Quizzes />}
+                    path="Quiz/:userSubjectId/:subjectId/:challengeId"
+                    element={
+                      <Quizzes
+                        onNavigateFn={() => setNavigateCount(navigateCount + 1)}
+                      />
+                    }
                   />
                 </>
               ) : (
@@ -66,7 +106,6 @@ const Student: React.FC = () => {
         </div>
       </div>
       {/*End::Root*/}
-      <ModalEnrollSubject />
       {isNavOpen ? (
         <div
           style={{ zIndex: 109 }}

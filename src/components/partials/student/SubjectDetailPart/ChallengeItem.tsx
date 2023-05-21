@@ -6,6 +6,7 @@ import lock from "~/src/assets/icons/lock.png";
 class ChallengeItemProp {
   challenge: Challenge;
   completedChallenges: Array<string> = [];
+  userSubjectId: string;
   onSeeHistory: () => void;
 }
 
@@ -44,26 +45,26 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
             <div className="col-12 text-center">
               <h1>{challenge.title}</h1>
             </div>
-            <div className="col-md-3 col-4 text-center">
+            <div className="col-md-3 col-4 text-center mb-4">
               <span className="text-gray-400 fw-bolder fs-7 d-block ps-0">
-                Passing Score:{" "}
+                Nilai Kelulusan:{" "}
                 <span className="text-dark fw-bolder fs-1 d-block ps-0">
                   {challenge.passingScore}
                 </span>
               </span>
             </div>
-            <div className="col-md-3 col-4 text-center">
+            <div className="col-md-3 col-4 text-center mb-4">
               <span className="text-gray-400 fw-bold fs-7 d-block ps-0">
-                Difficulty:{" "}
+                Tingkat Kesulitan:{" "}
                 <span className={"d-block badge fs-4 " + badgeStyle}>
                   {challenge.difficulty}
                 </span>
               </span>
             </div>
-            <div className="col-md-3 col-4 text-center mb-4">
+            <div className="col-md-3 col-4 text-center my-auto">
               {challenge.attemptsCount > 0 ? (
                 <span className="text-gray-400 fw-bolder fs-7 d-block ps-0">
-                  Your HiScore:{" "}
+                  Skor Tertinggi Anda:{" "}
                   <span
                     className={
                       "d-block success fs-1 fw-bolder " +
@@ -76,17 +77,17 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
                   </span>
                 </span>
               ) : (
-                <span className="text-gray-400 fw-bolder fs-7 d-block ps-0">
-                  Not attempted
+                <span className="text-gray-400 fw-bolder fs-4 d-block ps-0">
+                  Belum dikerjakan
                 </span>
               )}
             </div>
-            <div className="col-md-3 col-12 text-center">
+            <div className="col-md-3 col-12 text-center my-auto">
               <Link
-                to={`/Quiz/${challenge.subjectId}/${challenge._id}`}
+                to={`/Quiz/${props.userSubjectId}/${challenge.subjectId}/${challenge._id}`}
                 className="btn btn-sm btn-primary mb-2 w-100"
               >
-                Solve
+                Kerjakan
               </Link>
               {challenge.attemptsCount > 0 ? (
                 <a
@@ -95,7 +96,7 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
                   href="#challengeAttemptHistoriesModal"
                   onClick={() => props.onSeeHistory()}
                 >
-                  View attempt history
+                  Lihat Histori Pengerjaan
                 </a>
               ) : (
                 <></>

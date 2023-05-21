@@ -16,6 +16,10 @@ import {
 import { updateUser } from "../../../services/UpdateUser";
 import { SuccessActionModal } from "./modals/QuizPartials/SuccessAction";
 
+class ProfileParams {
+  onNavigateFn: () => void;
+}
+
 const OverlayBlockingComponent = () => {
   return (
     <div className="overlay-blocking-profile overlay-blocking-border">
@@ -24,7 +28,7 @@ const OverlayBlockingComponent = () => {
   );
 };
 
-const Profile: React.FC = () => {
+const Profile = ({ onNavigateFn }: ProfileParams) => {
   const [user, setUser] = useState<User>(new User({}));
   const [nickname, setNickname] = useState<string>("");
   const [fullname, setFullname] = useState<string>("");
@@ -48,6 +52,7 @@ const Profile: React.FC = () => {
   };
 
   useEffect(() => {
+    onNavigateFn();
     const fetchUser = async () => {
       let email = Cookies.get("email");
       let u = await getUser(email);
@@ -133,8 +138,9 @@ const Profile: React.FC = () => {
                         style={{ maxWidth: "100%", height: "auto" }}
                       />
                       <div className="row justify-content-center">
-                        {Object.keys(AvatarsPic).map((ava) => (
+                        {Object.keys(AvatarsPic).map((ava, idx) => (
                           <div
+                            key={idx}
                             className={
                               "col-4 col-md-1 p-2 avatars-selection-border " +
                               (ava == avatarCode ? "active" : "")
@@ -154,8 +160,8 @@ const Profile: React.FC = () => {
                         style={{ maxWidth: "100%", height: "auto" }}
                       />
                       {["LEVEL_1", "LEVEL_2", "LEVEL_3", "LEVEL_4"].map(
-                        (level) => (
-                          <>
+                        (level, idx) => (
+                          <div key={idx}>
                             <h3 className="fs-2 fw-lighter">
                               Syarat Level :&nbsp;
                               <img
@@ -169,8 +175,11 @@ const Profile: React.FC = () => {
                             <div className="row justify-content-center">
                               {FramesSelection.filter(
                                 (item) => item.level == level
-                              ).map((frame) => (
-                                <div className="col-4 col-md-1 p-2 p-relative">
+                              ).map((frame, idx) => (
+                                <div
+                                  key={idx}
+                                  className="col-4 col-md-1 p-2 p-relative"
+                                >
                                   {user.progressLevel != level ? (
                                     <OverlayBlockingComponent />
                                   ) : (
@@ -193,7 +202,7 @@ const Profile: React.FC = () => {
                                 </div>
                               ))}
                             </div>
-                          </>
+                          </div>
                         )
                       )}
                     </div>

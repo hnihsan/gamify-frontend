@@ -1,13 +1,84 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 // @ts-ignore
 import logo from "~/src/assets/logo_landscape.png";
 
 interface mainHeaderProps {
   handleToggleNav: () => void;
+  arrayPath: Array<string>;
 }
 
-const StudentMainHeader = ({ handleToggleNav }: mainHeaderProps) => {
+class NavItem {
+  title: string;
+  url: string;
+
+  constructor(title, url) {
+    this.title = title;
+    this.url = url;
+  }
+}
+
+const NavigationBar = (arrayPath: Array<string>) => {
+  let Title = "Beranda";
+  let NavItems: Array<NavItem> = [];
+
+  switch (arrayPath[1]) {
+    case "":
+      Title = "Beranda";
+      NavItems = [new NavItem("Beranda", "/")];
+      break;
+    case "Profile":
+      Title = "Profil";
+      NavItems = [
+        new NavItem("Beranda", "/"),
+        new NavItem("Profil", arrayPath.join("/")),
+      ];
+      break;
+    case "SubjectDetail":
+      Title = "Detil Materi";
+      NavItems = [
+        new NavItem("Beranda", "/"),
+        new NavItem("Detil Materi", arrayPath.join("/")),
+      ];
+      break;
+    case "Quiz":
+      Title = "Challenge";
+      NavItems = [
+        new NavItem("Beranda", "/"),
+        new NavItem("Detil Materi", "/SubjectDetail/" + arrayPath[2]),
+        new NavItem("Challenge", arrayPath.join("/")),
+      ];
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <div className="container-fluid py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-lg-stretch justify-content-sm-between">
+      <div className="page-title d-flex flex-column me-5">
+        <h1 className="d-flex flex-column text-dark fw-bolder fs-2hx mb-0">
+          {Title}
+        </h1>
+        <ul className="breadcrumb breadcrumb-separatorless fw-bold fs-2 pt-1">
+          {NavItems.map((item) => (
+            <li className="breadcrumb-item text-muted">
+              <Link to={item.url} className="text-muted text-hover-primary">
+                {item.title}
+              </Link>
+              &nbsp;•&nbsp;
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+const StudentMainHeader = ({ handleToggleNav, arrayPath }: mainHeaderProps) => {
+  useEffect(() => {
+    console.log(arrayPath);
+  });
+
   return (
     <>
       {/*begin::Header*/}
@@ -63,27 +134,7 @@ const StudentMainHeader = ({ handleToggleNav }: mainHeaderProps) => {
       <div className="container-fluid user-header">
         <div className="toolbar toolbar-custom mb-2">
           {/*begin::Toolbar*/}
-          <div className="container-fluid py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-lg-stretch justify-content-sm-between">
-            {/*begin::Page title*/}
-            <div className="page-title d-flex flex-column me-5">
-              {/*begin::Title*/}
-              <h1 className="d-flex flex-column text-dark fw-bolder fs-2hx mb-0">
-                Home
-              </h1>
-              {/*end::Title*/}
-              {/*begin::Breadcrumb*/}
-              <ul className="breadcrumb breadcrumb-separatorless fw-bold fs-2 pt-1">
-                {/*begin::Item*/}
-                <li className="breadcrumb-item text-muted">
-                  <Link to="/" className="text-muted text-hover-primary">
-                    Home
-                  </Link>
-                </li>
-              </ul>
-              {/*end::Breadcrumb*/}
-            </div>
-            {/*end::Page title*/}
-          </div>
+          {NavigationBar(arrayPath)}
           {/*end::Toolbar*/}
         </div>
       </div>

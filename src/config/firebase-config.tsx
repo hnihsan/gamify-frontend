@@ -1,5 +1,4 @@
 const config = {
-  /* TODO: ADD YOUR FIREBASE CONFIGURATION OBJECT HERE */
   apiKey: "AIzaSyBx8eXo_P72Ua-AyygmwruqCwqJ3Xv7cTw",
   authDomain: "hello-world-crud.firebaseapp.com",
   databaseURL: "https://hello-world-crud.firebaseio.com",

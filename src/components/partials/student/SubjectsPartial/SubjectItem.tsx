@@ -25,7 +25,7 @@ export const SubjectItem = (props: SubjectItemProp) => {
           <div className="card-title d-flex flex-column">
             {/* Title Section */}
             <span className="fs-2hx fw-bolder text-dark me-2 lh-1">
-              {subject.shortTitle}
+              {subject.title}
             </span>
             <span className="text-white pt-1 fw-bold fs-6">
               {subject.creator}

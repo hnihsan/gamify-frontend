@@ -49586,8 +49586,16 @@ body {
     border: 1px solid #e8e5dd;
 }
 
-.quiz-question-pane{
-    min-height: calc(100vh - 158px);;
+@media (max-width:767px) {
+  .quiz-question-pane{
+    min-height: auto;
+  }
+}
+
+@media (min-width:768px) {
+  .quiz-question-pane{
+    min-height: calc(100vh - 158px);
+  }
 }
 
 .btn-multiple-choice{

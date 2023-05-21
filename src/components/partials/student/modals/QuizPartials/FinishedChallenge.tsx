@@ -3,6 +3,7 @@ import React from "react";
 import winner from "~src/assets/media/illstrations/7.png"; // @ts-ignore
 import loser from "~src/assets/media/illstrations/9.png"; // @ts-ignore
 import { AchievementsIconLibrary } from "../../../../../lib/Tools";
+import { Achievement } from "../../../../../models/Achievement";
 const winnerBgImage = {
   backgroundImage: "url(" + winner + ")",
 };
@@ -16,6 +17,7 @@ interface modalProp {
   score: number;
   isPassed: boolean;
   challengeCode: string;
+  achievement: Achievement;
 }
 
 const ModalFinishedChallenge = ({
@@ -23,6 +25,7 @@ const ModalFinishedChallenge = ({
   score,
   isPassed,
   challengeCode,
+  achievement,
 }: modalProp) => {
   return (
     <>
@@ -48,11 +51,6 @@ const ModalFinishedChallenge = ({
                   className="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-150px min-h-lg-350px"
                   style={isPassed ? winnerBgImage : loserBgImage}
                 ></div>
-                <div className="fw-bold fs-3 text-muted mb-7">
-                  {isPassed
-                    ? "Wah selamat! Kamu berhasil menyelesaikan tantangan ini!"
-                    : "Ayo tetap semangat! Latihan lebih keras lagi ya"}
-                </div>
                 <h1 className="fw-bold fs-1qx text-gray-800">Skor:</h1>
                 <h1
                   className={
@@ -62,15 +60,25 @@ const ModalFinishedChallenge = ({
                 >
                   {score.toFixed(0)}
                 </h1>
-
+                <div className="fw-lighter fs-3">
+                  {isPassed ? (
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: achievement.successMessage,
+                      }}
+                    ></div>
+                  ) : (
+                    "Yah, sayang sekali kamu belum mencapai skor minimal. Yuk coba lagi!"
+                  )}
+                </div>
                 {/*begin::Action*/}
                 {AchievementsIconLibrary[challengeCode] && isPassed ? (
                   <>
                     <div className="text-gray-700 fw-bold fs-4 pt-7">
-                      Kamu mendapatkan Achievement untuk:
+                      Achievement yang terbuka:
                     </div>
-                    <div className="text-primary fw-bolder mb-4">
-                      Menuntaskan Challenge di atas passing grade
+                    <div className="text-primary fs-3 fw-bolder mb-4">
+                      {achievement.title}
                     </div>
                     <div className="symbol symbol-100px symbol-fixed text-center">
                       <img src={AchievementsIconLibrary[challengeCode]} />

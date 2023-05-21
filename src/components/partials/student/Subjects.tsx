@@ -14,11 +14,14 @@ import Cookies from "js-cookie";
 import { getUser } from "../../../services/GetUser";
 import { getUserRank } from "../../../services/GetUserRank";
 import { getLeaderboard } from "../../../services/GetLeaderboard";
+import { HomeIntroductionModal } from "./modals/QuizPartials/HomeIntroduction";
 
 class SubjectProp {
   userId: string;
+  onNavigateFn: () => void;
 }
-const Subjects = ({ userId }: SubjectProp) => {
+
+const Subjects = ({ userId, onNavigateFn }: SubjectProp) => {
   const [userSubjects, setUserSubjects] = useState<Array<UserSubject>>([]);
   const [user, setUser] = useState<User>(new User({}));
   const [rank, setRank] = useState<number>(0);
@@ -28,8 +31,15 @@ const Subjects = ({ userId }: SubjectProp) => {
   );
   const [isDataReady, setIsDataReady] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [showIntro, setShowIntro] = useState<boolean>(true);
+  const getPopupStatus = () => Cookies.get("popupWelcome") == "true";
+  const dontShowIntro = () => {
+    setShowIntro(false);
+    Cookies.set("popupWelcome", false);
+  };
 
   useEffect(() => {
+    onNavigateFn();
     const fetchUserSubjects = async () => {
       let uss = await getUserSubjects(userId);
       let meta = await getMetadata();
@@ -63,10 +73,7 @@ const Subjects = ({ userId }: SubjectProp) => {
       <div id="kt_content_container" className="container-fluid mt-4">
         {/* begin section header */}
         <div className="my-2">
-          <h2 className="fs-2hx gamphy-maintext">
-            Daftar Materi&nbsp;
-            <i className="fa fa-question-circle fs-2"></i>
-          </h2>
+          <h2 className="fs-2hx gamphy-maintext">Daftar Materi</h2>
           <h2 className="fs-4 fw-lighter">
             Silakan pilih materi yang ingin kamu ikuti
           </h2>
@@ -82,15 +89,17 @@ const Subjects = ({ userId }: SubjectProp) => {
               ) : userSubjects.length == 0 ? (
                 <NoSubjectEnrolled />
               ) : (
-                userSubjects.map((userSubject) => {
-                  return (
-                    <SubjectItem
-                      key={userSubject._id}
-                      userSubject={userSubject}
-                      subject={userSubject.subject}
-                    />
-                  );
-                })
+                userSubjects
+                  .sort((a, b) => (a.subject.order > b.subject.order ? 1 : -1))
+                  .map((userSubject) => {
+                    return (
+                      <SubjectItem
+                        key={userSubject._id}
+                        userSubject={userSubject}
+                        subject={userSubject.subject}
+                      />
+                    );
+                  })
               )}
             </div>
           </div>
@@ -110,6 +119,14 @@ const Subjects = ({ userId }: SubjectProp) => {
         {/*end::Row*/}
       </div>
       {/*end::Container*/}
+      {showIntro && getPopupStatus() ? (
+        <HomeIntroductionModal
+          onDismissButton={() => setShowIntro(false)}
+          onDontShowButton={() => dontShowIntro()}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

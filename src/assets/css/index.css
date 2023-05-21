@@ -343,3 +343,43 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
     margin-right: auto;
   }
 }
+
+.mh-subject {
+  min-height: 290px;
+}
+
+.btn.gamphy-mainbg.active {
+  color: #ffffff !important;
+  border-color: #86aadf !important;
+  background-color: #86aadf !important;
+}
+
+.btn.gamphy-mainbg.active > i {
+  color: #ffffff !important;
+  font-size: calc(1.275rem + .3vw) !important
+}
+
+.btn.gamphy-mainbg {
+  color: #86aadf !important;
+  border-color: #cbdbf145 !important;
+  background-color: #cbdbf145 !important;
+}
+
+.btn.gamphy-mainbg > i {
+  color: #86aadf !important;
+  font-size: calc(1.275rem + .3vw) !important
+}
+
+.btn.gamphy-mainbg:hover {
+  color: #ffffff !important;
+  border-color: #86aadf !important;
+  background-color: #86aadf !important;
+}
+
+.btn.gamphy-mainbg:hover > i {
+  color: #ffffff !important;
+  font-size: calc(1.275rem + .3vw) !important
+}
+
+/* background-color: #86aadf !important;
+background-color: #cbdbf1 !important; */
