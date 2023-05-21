@@ -381,5 +381,15 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
   font-size: calc(1.275rem + .3vw)
 }
 
-/* background-color: #86aadf !important;
-background-color: #cbdbf1 !important; */
+@media (max-width:500px) {
+  .br-nav {
+    display: block !important;
+  }
+}
+
+@media (min-width:501px) {
+  .br-nav {
+    display: none !important;
+  }
+}
+

@@ -94,8 +94,9 @@ const SubjectDetail = ({ onNavigateFn }: Props) => {
                   href="#challenges_tab"
                 >
                   {/*begin::Svg Icon | path: icons/duotune/general/gen001.svg*/}
-                  <i className="bi-pencil-fill"></i>&nbsp;
-                  <span className="fs-4 fw-bolder">Challenges</span>
+                  <i className="bi-pencil-fill"></i>
+                  <br className="br-nav" />
+                  <span className="fs-4 fw-bolder">&nbsp;Challenges</span>
                 </a>
               </li>
               <li className="nav-item me-0 mb-md-2 col-6 w-50">
@@ -104,8 +105,9 @@ const SubjectDetail = ({ onNavigateFn }: Props) => {
                   data-bs-toggle="tab"
                   href="#lessons_tab"
                 >
-                  <i className="bi-book-fill"></i>&nbsp;
-                  <span className="fs-4 fw-bolder">Pembelajaran</span>
+                  <i className="bi-book-fill"></i>
+                  <br className="br-nav" />
+                  <span className="fs-4 fw-bolder">&nbsp;Pembelajaran</span>
                 </a>
               </li>
             </ul>
