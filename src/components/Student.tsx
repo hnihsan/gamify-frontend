@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import StudentSideNav from "./partials/student/SideNavigation";
 import StudentMainHeader from "./partials/student/Header";
 import StudentSubjects from "./partials/student/Subjects";
-import ModalEnrollSubject from "./partials/student/modals/EnrollSubject";
 import SubjectDetail from "./partials/student/SubjectDetail";
 import Quizzes from "./partials/student/Quiz";
 import Cookies from "js-cookie";
 import { Routes, Route } from "react-router-dom";
 import Profile from "./partials/student/Profile";
-import { HomeIntroductionModal } from "./partials/student/modals/QuizPartials/HomeIntroduction";
+import { AchievementsIconLibrary } from "../lib/Tools";
+// @ts-ignore
+import unj from "~/src/assets/icons/footer/unj.png"; // @ts-ignore
+import kemendikbud from "~/src/assets/icons/footer/kemendikbud.png"; // @ts-ignore
+import merdeka from "~/src/assets/icons/footer/merdeka.png"; // @ts-ignore
+import leaderboard_frame from "~/src/assets/icons/leaderboard/leaderboard_frame.png";
 
 const Student: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
@@ -102,6 +106,31 @@ const Student: React.FC = () => {
                 <></>
               )}
             </Routes>
+            <div className="my-4">
+              <div className="col-12 ">
+                <div className="mt-3 w-100 text-center">
+                  <div className="flex-column">
+                    <a href="#" className="">
+                      <img
+                        src={unj}
+                        alt="image"
+                        className="h-75px me-2 rounded-circle"
+                      />
+                    </a>
+                    <a href="#" className="">
+                      <img
+                        src={kemendikbud}
+                        alt="image"
+                        className="h-75px me-2 rounded-circle"
+                      />
+                    </a>
+                    <a href="#" className="">
+                      <img src={merdeka} alt="image" className="h-75px" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

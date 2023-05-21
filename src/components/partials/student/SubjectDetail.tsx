@@ -313,38 +313,6 @@ const SubjectDetail = ({ onNavigateFn }: Props) => {
                               </div>
                             )}
                           </div>
-                          {/* <div className="col-12 mb-2">
-                        <div className="d-flex align-items-center flex-column mt-3 w-100">
-                          <h4 className="card-title fw-bolder text-">
-                            Share your Journey
-                          </h4>
-                        </div>
-                        <div className="mt-3 w-100 text-center">
-                          <div className="flex-column">
-                            <a href="#" className="me-6">
-                              <img
-                                src={achv_1}
-                                alt="image"
-                                className="h-40px me-2"
-                              />
-                            </a>
-                            <a href="#" className="me-6">
-                              <img
-                                src={achv_1}
-                                alt="image"
-                                className="h-40px me-2"
-                              />
-                            </a>
-                            <a href="#" className="me-6">
-                              <img
-                                src={achv_1}
-                                alt="image"
-                                className="h-40px me-2"
-                              />
-                            </a>
-                          </div>
-                        </div>
-                      </div> */}
                         </div>
                       </div>
                     </div>

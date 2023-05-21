@@ -324,7 +324,7 @@ const Quizzes = ({ onNavigateFn }: Props) => {
                               </div>
                             </div>
                           </div>
-                          <div className="row mt-4">
+                          <div className="row my-4">
                             {qindex > 0 ? (
                               <div className="col-6">
                                 <button
@@ -370,6 +370,7 @@ const Quizzes = ({ onNavigateFn }: Props) => {
                             )}
                             {/*end::Wrapper*/}
                           </div>
+                          <br />
                         </div>
                       </div>
                     );

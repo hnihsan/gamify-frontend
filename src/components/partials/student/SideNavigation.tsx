@@ -71,7 +71,7 @@ const StudentSideNav = ({ isNavDisplayed, activePage }: sideNavProps) => {
                   <span className="menu-bullet">
                     <span className="bullet bullet-dot"></span>
                   </span>
-                  <span className="menu-title">Dashboard</span>
+                  <span className="menu-title">Beranda</span>
                 </Link>
               </div>
               <div className="menu-item">
@@ -84,7 +84,7 @@ const StudentSideNav = ({ isNavDisplayed, activePage }: sideNavProps) => {
                   <span className="menu-bullet">
                     <span className="bullet bullet-dot"></span>
                   </span>
-                  <span className="menu-title">Profile</span>
+                  <span className="menu-title">Profil</span>
                 </Link>
               </div>
             </div>
