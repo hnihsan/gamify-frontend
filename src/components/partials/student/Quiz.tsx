@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
-import { shuffleArray } from "../../../lib/Tools";
+import { ProgressLevelTitle, shuffleArray } from "../../../lib/Tools";
 import { Quiz } from "../../../models/Quiz";
 import {
   CreateInitialUserAttempt_VM,
@@ -22,6 +22,10 @@ import { getChallengeById } from "../../../services/GetChallengeById";
 import { Challenge } from "../../../models/Challenge";
 import { Achievement } from "../../../models/Achievement";
 import { getAllAchievements } from "../../../services/GetAllAchievements";
+import { User } from "../../../models/User";
+import { getUser } from "../../../services/GetUser";
+import { MetadataModel } from "../../../models/Metadata";
+import { getMetadata } from "../../../services/GetMetada";
 
 class AnswerStatus {
   quizId: string;
@@ -51,6 +55,12 @@ const Quizzes = ({ onNavigateFn }: Props) => {
   const [playerScore, setPlayerScore] = useState<number>(0);
   const [isChlPassed, setIsChlPassed] = useState<boolean>(false);
   const isSubmitted = useRef(false);
+  const [user, setUser] = useState<User>(new User({}));
+  const [metadata, setMetadata] = useState<MetadataModel>(
+    new MetadataModel({})
+  );
+  const [proceedNextLevel, setProceedNextLevel] = useState<boolean>(false);
+  const [nextLevelCode, setNextLevelCode] = useState<string>("LEVEL_2");
   const [achievement, setAchievement] = useState<Achievement>(
     new Achievement({})
   );
@@ -78,6 +88,24 @@ const Quizzes = ({ onNavigateFn }: Props) => {
     setIsStarted(true);
     delay(challenge.duration * 1000).then(() => SubmitQuiz(res.insertedId));
   };
+
+  const AssignNextLevelCode = (progress: number, maxPoints: number) => {
+    let levelCodes = Object.keys(ProgressLevelTitle);
+    let levelPercent = (progress / maxPoints) * 100;
+    let level = Math.floor(levelPercent / 25);
+
+    let next = levelCodes[level + 1];
+    setNextLevelCode(next);
+  };
+
+  const nextLevelReqPoints = () => {
+    let quarter = metadata.maxPoints / 4;
+    let level = Math.floor(user.points / quarter);
+    let nextReq = (level + 1) * quarter;
+
+    return nextReq - user.points;
+  };
+
   const SubmitQuiz = async (attemptId_input: string | null = null) => {
     if (isSubmitted.current) return;
 
@@ -90,6 +118,8 @@ const Quizzes = ({ onNavigateFn }: Props) => {
 
     var score = (correctAnswerCount / totalQuiz) * 100;
     setPlayerScore(score);
+    setProceedNextLevel(score >= nextLevelReqPoints());
+
     let isPlayerPassed = score >= challenge.passingScore;
     setIsChlPassed(isPlayerPassed);
     var vm = new SubmitUserAttempt_VM({
@@ -126,6 +156,13 @@ const Quizzes = ({ onNavigateFn }: Props) => {
     onNavigateFn();
     const fetchData = async () => {
       if (typeof challengeId == "string") {
+        let meta = await getMetadata();
+        setMetadata(meta);
+        let email = Cookies.get("email");
+        let u = await getUser(email);
+        setUser(u);
+        AssignNextLevelCode(u.points, meta.maxPoints);
+
         let challenge = await getChallengeById(challengeId, getUserId());
         setChallenge(challenge);
 
@@ -210,133 +247,131 @@ const Quizzes = ({ onNavigateFn }: Props) => {
                 ) : (
                   quizzes.map((q, qindex) => {
                     return (
-                      <>
-                        <div
-                          key={q._id}
-                          className={
-                            "tab-pane fade quiz-pane " +
-                            (activeQuiz == q._id ? "active show" : "")
-                          }
-                          id={q._id}
-                        >
-                          <div className="w-100">
-                            <div className="row">
-                              <div className="col-md-6 col-sm-12">
-                                <div className="card">
-                                  <div className="card-body overflow-auto quiz-question-pane">
-                                    <div className="fs-5 fw-bolder">
-                                      Soal No. {qindex + 1}
-                                    </div>
-                                    <div
-                                      dangerouslySetInnerHTML={{
-                                        __html: q.question,
-                                      }}
-                                    />
+                      <div
+                        key={q._id}
+                        className={
+                          "tab-pane fade quiz-pane " +
+                          (activeQuiz == q._id ? "active show" : "")
+                        }
+                        id={q._id}
+                      >
+                        <div className="w-100">
+                          <div className="row">
+                            <div className="col-md-6 col-sm-12">
+                              <div className="card">
+                                <div className="card-body overflow-auto quiz-question-pane">
+                                  <div className="fs-5 fw-bolder">
+                                    Soal No. {qindex + 1}
                                   </div>
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: q.question,
+                                    }}
+                                  />
                                 </div>
                               </div>
-                              <div className="col-md-6 col-sm-12">
-                                <div className="row">
-                                  <div className="col-12 mb-2">
-                                    <div className="d-flex flex-column mt-3 w-100">
-                                      <h2>Pilih jawaban yang benar!</h2>
-                                      <div data-kt-buttons="true">
-                                        {q.options.map((op, index) => {
-                                          return (
-                                            <>
-                                              <label
-                                                className={
-                                                  "btn btn-outline d-flex flex-stack text-start p-6 mb-5 btn-multiple-choice " +
-                                                  (getIsQa()
-                                                    ? op.isAnswer
-                                                      ? "bg-success"
-                                                      : "bg-white"
-                                                    : "bg-white")
-                                                }
-                                              >
-                                                <div className="d-flex align-items-center me-2">
-                                                  <div className="form-check form-check-custom form-check-solid form-check-primary me-6">
-                                                    <input
-                                                      className="form-check-input"
-                                                      type="radio"
-                                                      name={q._id}
-                                                      value={op.id}
-                                                      onChange={(e) =>
-                                                        onAnswerChanged(e)
-                                                      }
-                                                    />
-                                                  </div>
-                                                </div>
-
-                                                {/*begin::Price*/}
-                                                <div className="ms-5">
-                                                  <div
-                                                    dangerouslySetInnerHTML={{
-                                                      __html: op.content,
-                                                    }}
+                            </div>
+                            <div className="col-md-6 col-sm-12">
+                              <div className="row">
+                                <div className="col-12 mb-2">
+                                  <div className="d-flex flex-column mt-3 w-100">
+                                    <h2>Pilih jawaban yang benar!</h2>
+                                    <div data-kt-buttons="true">
+                                      {q.options.map((op, index) => {
+                                        return (
+                                          <>
+                                            <label
+                                              className={
+                                                "btn btn-outline d-flex flex-stack text-start p-6 mb-5 btn-multiple-choice " +
+                                                (getIsQa()
+                                                  ? op.isAnswer
+                                                    ? "bg-success"
+                                                    : "bg-white"
+                                                  : "bg-white")
+                                              }
+                                            >
+                                              <div className="d-flex align-items-center me-2">
+                                                <div className="form-check form-check-custom form-check-solid form-check-primary me-6">
+                                                  <input
+                                                    className="form-check-input"
+                                                    type="radio"
+                                                    name={q._id}
+                                                    value={op.id}
+                                                    onChange={(e) =>
+                                                      onAnswerChanged(e)
+                                                    }
                                                   />
                                                 </div>
-                                                {/*end::Price*/}
-                                              </label>
-                                            </>
-                                          );
-                                        })}
-                                      </div>
-                                      {/*end::Radio group*/}
+                                              </div>
+
+                                              {/*begin::Price*/}
+                                              <div className="ms-5">
+                                                <div
+                                                  dangerouslySetInnerHTML={{
+                                                    __html: op.content,
+                                                  }}
+                                                />
+                                              </div>
+                                              {/*end::Price*/}
+                                            </label>
+                                          </>
+                                        );
+                                      })}
                                     </div>
+                                    {/*end::Radio group*/}
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div className="row mt-4">
-                              {qindex > 0 ? (
-                                <div className="col-6">
-                                  <button
-                                    type="button"
-                                    className="btn btn-lg btn-light-primary me-3"
-                                    onClick={() =>
-                                      setActiveQuiz(quizzes[qindex - 1]._id)
-                                    }
-                                  >
-                                    <i className="fa fa-arrow-left"></i>
-                                    &nbsp;Back
-                                  </button>
-                                </div>
-                              ) : (
-                                <div className="col-6"></div>
-                              )}
-                              {qindex == quizzes.length - 1 ? (
-                                <div className="col-6 d-flex align-items-end flex-column">
-                                  <a
-                                    type="button"
-                                    className="btn btn-lg btn-success"
-                                    data-bs-toggle="modal"
-                                    data-backdrop="static"
-                                    href="#promptIsFinishedModal"
-                                  >
-                                    Submit&nbsp;
-                                    <i className="fa fa-check"></i>
-                                  </a>
-                                </div>
-                              ) : (
-                                <div className="col-6 d-flex align-items-end flex-column">
-                                  <button
-                                    type="button"
-                                    className="btn btn-lg btn-primary nav-link"
-                                    onClick={() =>
-                                      setActiveQuiz(quizzes[qindex + 1]._id)
-                                    }
-                                  >
-                                    Next&nbsp;
-                                    <i className="fa fa-arrow-right"></i>
-                                  </button>
-                                </div>
-                              )}
-                              {/*end::Wrapper*/}
-                            </div>
+                          </div>
+                          <div className="row mt-4">
+                            {qindex > 0 ? (
+                              <div className="col-6">
+                                <button
+                                  type="button"
+                                  className="btn btn-lg btn-light-primary me-3"
+                                  onClick={() =>
+                                    setActiveQuiz(quizzes[qindex - 1]._id)
+                                  }
+                                >
+                                  <i className="fa fa-arrow-left"></i>
+                                  &nbsp;Back
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="col-6"></div>
+                            )}
+                            {qindex == quizzes.length - 1 ? (
+                              <div className="col-6 d-flex align-items-end flex-column">
+                                <a
+                                  type="button"
+                                  className="btn btn-lg btn-success"
+                                  data-bs-toggle="modal"
+                                  data-backdrop="static"
+                                  href="#promptIsFinishedModal"
+                                >
+                                  Submit&nbsp;
+                                  <i className="fa fa-check"></i>
+                                </a>
+                              </div>
+                            ) : (
+                              <div className="col-6 d-flex align-items-end flex-column">
+                                <button
+                                  type="button"
+                                  className="btn btn-lg btn-primary nav-link"
+                                  onClick={() =>
+                                    setActiveQuiz(quizzes[qindex + 1]._id)
+                                  }
+                                >
+                                  Next&nbsp;
+                                  <i className="fa fa-arrow-right"></i>
+                                </button>
+                              </div>
+                            )}
+                            {/*end::Wrapper*/}
                           </div>
                         </div>
-                      </>
+                      </div>
                     );
                   })
                 )}
@@ -367,6 +402,8 @@ const Quizzes = ({ onNavigateFn }: Props) => {
           onContinue={() => navigate(-1)}
           challengeCode={challenge.code}
           achievement={achievement}
+          notifyNextLevel={proceedNextLevel}
+          levelCode={nextLevelCode}
         />
       ) : (
         <></>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ProgressLevelTitle,
   ProgressLevelIcon,
@@ -28,6 +28,22 @@ const ProgressBarValue = (nbar: number, progress: number) => {
   if (progress >= maxValue) return 100;
   else if (progress > minValue) return ((progress - minValue) / 25) * 100;
   else return 0;
+};
+
+const nextLevelReqPoints = (progress: number, maxPoints: number) => {
+  let quarter = maxPoints / 4;
+  let level = Math.floor(progress / quarter);
+  let nextReq = (level + 1) * quarter;
+
+  return (nextReq - progress).toFixed(0);
+};
+
+const nextLevelTitle = (progress: number, maxPoints: number) => {
+  let levels = Object.values(ProgressLevelTitle);
+  let levelPercent = (progress / maxPoints) * 100;
+  let level = Math.floor(levelPercent / 25);
+
+  return levels[level + 1];
 };
 
 export const ProgressComponent = (props: ProgressParams) => {
@@ -146,13 +162,25 @@ export const ProgressComponent = (props: ProgressParams) => {
             <h3 className="fs-4 fw-lighter text-white">
               ({((user.points / meta.maxPoints) * 100).toFixed(0)}% Completion)
             </h3>
-            <h3 className="fs-4 fw-lighter">
-              Butuh{" "}
-              <span className="gamphy-maintext fw-bolder">
-                {(meta.maxPoints - user.points).toFixed(0)}
-              </span>{" "}
-              poin lagi untuk ke peringkat selanjutnya!
-            </h3>
+            {user.points == meta.maxPoints ? (
+              <h3 className="fs-4 fw-lighter">
+                Kamu sudah mencapai&nbsp;
+                <span className="gamphy-maintext fw-bolder">
+                  poin maksimal!
+                </span>
+              </h3>
+            ) : (
+              <h3 className="fs-4 fw-lighter">
+                Butuh{" "}
+                <span className="gamphy-maintext fw-bolder">
+                  {nextLevelReqPoints(user.points, meta.maxPoints)}
+                </span>{" "}
+                poin lagi untuk ke level{" "}
+                <span className="gamphy-maintext fw-bolder">
+                  {nextLevelTitle(user.points, meta.maxPoints)}
+                </span>
+              </h3>
+            )}
           </div>
         </div>
       </div>

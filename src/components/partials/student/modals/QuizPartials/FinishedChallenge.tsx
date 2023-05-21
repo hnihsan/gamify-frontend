@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 // @ts-ignore
 import winner from "~src/assets/media/illstrations/7.png"; // @ts-ignore
 import loser from "~src/assets/media/illstrations/9.png"; // @ts-ignore
-import { AchievementsIconLibrary } from "../../../../../lib/Tools";
+import leaderboard_frame from "~/src/assets/icons/leaderboard/leaderboard_frame.png";
+import {
+  AchievementsIconLibrary,
+  ProgressLevelIcon,
+  ProgressLevelTitle,
+} from "../../../../../lib/Tools";
 import { Achievement } from "../../../../../models/Achievement";
+import { User } from "../../../../../models/User";
+import { MetadataModel } from "../../../../../models/Metadata";
 const winnerBgImage = {
   backgroundImage: "url(" + winner + ")",
 };
@@ -18,6 +25,8 @@ interface modalProp {
   isPassed: boolean;
   challengeCode: string;
   achievement: Achievement;
+  notifyNextLevel: boolean;
+  levelCode: string;
 }
 
 const ModalFinishedChallenge = ({
@@ -26,6 +35,8 @@ const ModalFinishedChallenge = ({
   isPassed,
   challengeCode,
   achievement,
+  notifyNextLevel,
+  levelCode,
 }: modalProp) => {
   return (
     <>
@@ -62,11 +73,15 @@ const ModalFinishedChallenge = ({
                 </h1>
                 <div className="fw-lighter fs-3">
                   {isPassed ? (
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: achievement.successMessage,
-                      }}
-                    ></div>
+                    achievement?.successMessage ? (
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: achievement.successMessage,
+                        }}
+                      ></div>
+                    ) : (
+                      "Selamat kamu telah berhasil menyelesaikan challenge ini!"
+                    )
                   ) : (
                     "Yah, sayang sekali kamu belum mencapai skor minimal. Yuk coba lagi!"
                   )}
@@ -87,8 +102,26 @@ const ModalFinishedChallenge = ({
                 ) : (
                   <></>
                 )}
-
-                {/*end::Action*/}
+                {notifyNextLevel ? (
+                  <>
+                    <img
+                      src={leaderboard_frame}
+                      className="mx-auto mt-4"
+                      style={{ maxWidth: "250px", height: "auto" }}
+                    />
+                    <div className="text-gray-700 fw-bold fs-4 pt-7">
+                      Selamat anda berhasil mencapai level selanjutnya :
+                    </div>
+                    <div className="text-primary fs-3 fw-bolder mb-4">
+                      {ProgressLevelTitle[levelCode]}
+                    </div>
+                    <div className="symbol symbol-100px symbol-fixed text-center">
+                      <img src={ProgressLevelIcon[levelCode]} />
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="d-flex flex-center flex-row-fluid ">
                 <button

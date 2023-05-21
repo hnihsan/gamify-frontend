@@ -173,6 +173,12 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
     margin-bottom: auto;
     margin-left: 1rem;
   }
+
+  .rank-img {
+    height: auto;
+    max-width: 100%;
+    margin-top: 12px;
+  }
 }
 
 @media (max-width:540px) {
@@ -188,6 +194,11 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
   .m-rank-text {
     margin-top: auto;
     margin-bottom: auto;
+  }
+
+  .rank-img {
+    max-height: 30px;
+    max-width: 100%;
   }
 }
 
@@ -235,12 +246,6 @@ a.btn.btn-success.btn-lg.gamphy-secondbg:hover {
 
 .round-corner {
   border-radius: 25px;
-}
-
-.rank-img {
-  height: auto;
-  max-width: 100%;
-  margin-top: 12px;
 }
 
 .p-relative {

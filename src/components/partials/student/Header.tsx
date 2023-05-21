@@ -60,8 +60,8 @@ const NavigationBar = (arrayPath: Array<string>) => {
           {Title}
         </h1>
         <ul className="breadcrumb breadcrumb-separatorless fw-bold fs-2 pt-1">
-          {NavItems.map((item) => (
-            <li className="breadcrumb-item text-muted">
+          {NavItems.map((item, idx) => (
+            <li key={idx} className="breadcrumb-item text-muted">
               <Link to={item.url} className="text-muted text-hover-primary">
                 {item.title}
               </Link>
@@ -75,10 +75,6 @@ const NavigationBar = (arrayPath: Array<string>) => {
 };
 
 const StudentMainHeader = ({ handleToggleNav, arrayPath }: mainHeaderProps) => {
-  useEffect(() => {
-    console.log(arrayPath);
-  });
-
   return (
     <>
       {/*begin::Header*/}
