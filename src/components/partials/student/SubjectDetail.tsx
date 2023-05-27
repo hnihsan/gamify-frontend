@@ -139,23 +139,25 @@ const SubjectDetail = ({ onNavigateFn }: Props) => {
                     ) : challenges.length == 0 ? (
                       <NoChallenge onReloadFn={() => fetchChallenges()} />
                     ) : (
-                      challenges.map((ch) => {
-                        return (
-                          <div key={ch._id}>
-                            <ChallengeItem
-                              challenge={ch}
-                              userSubjectId={userSubject._id}
-                              completedChallenges={
-                                userSubject.completedChallengeCodes
-                              }
-                              onSeeHistory={() => {
-                                setSelectedUserAttempts(ch.userAttempts);
-                                setSelectedChallengeTitle(ch.title);
-                              }}
-                            />
-                          </div>
-                        );
-                      })
+                      challenges
+                        .sort((a, b) => (a.order > b.order ? 1 : -1))
+                        .map((ch) => {
+                          return (
+                            <div key={ch._id}>
+                              <ChallengeItem
+                                challenge={ch}
+                                userSubjectId={userSubject._id}
+                                completedChallenges={
+                                  userSubject.completedChallengeCodes
+                                }
+                                onSeeHistory={() => {
+                                  setSelectedUserAttempts(ch.userAttempts);
+                                  setSelectedChallengeTitle(ch.title);
+                                }}
+                              />
+                            </div>
+                          );
+                        })
                     )}
                   </div>
                 </div>

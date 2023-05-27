@@ -16,6 +16,7 @@ export class Challenge {
   code: string;
   createdAt: Date;
   updatedAt: Date;
+  order: number;
 
   constructor(obj: any) {
     this._id = obj._id;
@@ -33,5 +34,6 @@ export class Challenge {
     this.updatedAt = new Date(obj.updatedAt);
     this.qCount = obj.qCount;
     this.code = obj.code;
+    this.order = obj.order;
   }
 }
