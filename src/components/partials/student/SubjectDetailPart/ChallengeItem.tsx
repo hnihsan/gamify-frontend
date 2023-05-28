@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Challenge } from "../../../../models/Challenge";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 // @ts-ignore
 import lock from "~/src/assets/icons/lock.png";
 class ChallengeItemProp {
@@ -13,21 +14,49 @@ class ChallengeItemProp {
 export const ChallengeItem = (props: ChallengeItemProp) => {
   const [challenge, setChallenge] = useState<Challenge>(props.challenge);
   const [badgeStyle, setBadgeStyle] = useState<string>("badge-light-success");
+  const [badgeLabel, setBadgeLabel] = useState<string>("Memuat..");
   const [attemptLeft, setAttemptLeft] = useState<number>(0);
+  const getIsQa = () => {
+    var str = Cookies.get("1ff6a62379dcf46ec91fd65451a959fc");
+    return str == "cebf9416c97f4808312f215c569c73c4";
+  };
+
+  const OverlayBlockingComponent = (
+    reqCode: string,
+    codes: Array<string> = []
+  ) => {
+    if (getIsQa()) return;
+
+    if (reqCode) {
+      if (!codes.includes(reqCode)) {
+        return (
+          <div className="overlay-blocking">
+            <img src={lock} />
+          </div>
+        );
+      }
+    }
+
+    return <></>;
+  };
 
   useEffect(() => {
     switch (challenge.difficulty) {
       case "Easy":
         setBadgeStyle("badge-light-success");
+        setBadgeLabel("Easy");
         break;
       case "Intermediate":
         setBadgeStyle("badge-light-warning");
+        setBadgeLabel("Medium");
         break;
       case "Hard":
         setBadgeStyle("badge-light-danger");
+        setBadgeLabel("Hard");
         break;
       default:
         setBadgeStyle("badge-light-info");
+        setBadgeLabel("Lainnya");
     }
 
     setAttemptLeft(challenge.attemptLimit - challenge.attemptsCount);
@@ -57,7 +86,7 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
               <span className="text-gray-400 fw-bold fs-7 d-block ps-0">
                 Tingkat Kesulitan:{" "}
                 <span className={"d-block badge fs-4 " + badgeStyle}>
-                  {challenge.difficulty}
+                  {badgeLabel}
                 </span>
               </span>
             </div>
@@ -107,21 +136,4 @@ export const ChallengeItem = (props: ChallengeItemProp) => {
       </div>
     </div>
   );
-};
-
-const OverlayBlockingComponent = (
-  reqCode: string,
-  codes: Array<string> = []
-) => {
-  if (reqCode) {
-    if (!codes.includes(reqCode)) {
-      return (
-        <div className="overlay-blocking">
-          <img src={lock} />
-        </div>
-      );
-    }
-  }
-
-  return <></>;
 };

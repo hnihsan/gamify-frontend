@@ -2,13 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gamphy Learning</title>
-    <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="stylesheet" href="assets/css/style.bundle.css">
-    <link rel="stylesheet" href="assets/css/plugins.bundle.css">
-    <link rel="stylesheet" href="assets/css/student-style.bundle.css">
-    <link rel="icon" href="./favicon.png">
+    <link rel="stylesheet" href="assets/css/index.css" />
+    <link rel="stylesheet" href="assets/css/style.bundle.css" />
+    <link rel="stylesheet" href="assets/css/plugins.bundle.css" />
+    <link rel="stylesheet" href="assets/css/student-style.bundle.css" />
+    <link rel="icon" href="./favicon.png" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      id=""
+    ></script>
+    <script>
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+        extensions: ["tex2math.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+      });
+    </script>
   </head>
   <body>
     <div id="app" class="content-bg h-100"></div>
