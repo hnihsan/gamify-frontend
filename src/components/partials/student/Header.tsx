@@ -35,17 +35,17 @@ const NavigationBar = (arrayPath: Array<string>) => {
       ];
       break;
     case "SubjectDetail":
-      Title = "Detil Materi";
+      Title = "Detail Materi";
       NavItems = [
         new NavItem("Beranda", "/"),
-        new NavItem("Detil Materi", arrayPath.join("/")),
+        new NavItem("Detail Materi", arrayPath.join("/")),
       ];
       break;
     case "Quiz":
       Title = "Challenge";
       NavItems = [
         new NavItem("Beranda", "/"),
-        new NavItem("Detil Materi", "/SubjectDetail/" + arrayPath[2]),
+        new NavItem("Detail Materi", "/SubjectDetail/" + arrayPath[2]),
         new NavItem("Challenge", arrayPath.join("/")),
       ];
       break;
