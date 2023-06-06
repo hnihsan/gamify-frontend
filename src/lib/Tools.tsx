@@ -115,23 +115,23 @@ export const GetAchievementThumbnail = (
 
 export const ProgressLevelTitle = {
   LEVEL_1: "Telur",
-  LEVEL_2: "Kepompong",
-  LEVEL_3: "Ulat",
+  LEVEL_2: "Ulat",
+  LEVEL_3: "Kepompong",
   LEVEL_4: "Kupu-kupu",
 };
 
 export const ProgressLevelIcon = {
   LEVEL_1: egg,
-  LEVEL_2: cocoon,
-  LEVEL_3: caterpillar,
+  LEVEL_2: caterpillar,
+  LEVEL_3: cocoon,
   LEVEL_4: butterfly,
 };
 
 export const ProgressBarIcons = {
-  LEVEL_1: [egg, cocoon_lock, caterpillar_lock, butterfly_lock],
-  LEVEL_2: [egg, cocoon, caterpillar_lock, butterfly_lock],
-  LEVEL_3: [egg, cocoon, caterpillar, butterfly_lock],
-  LEVEL_4: [egg, cocoon, caterpillar, butterfly],
+  LEVEL_1: [egg, caterpillar_lock, cocoon_lock, butterfly_lock],
+  LEVEL_2: [egg, caterpillar, cocoon_lock, butterfly_lock],
+  LEVEL_3: [egg, caterpillar, cocoon, butterfly_lock],
+  LEVEL_4: [egg, caterpillar, cocoon, butterfly],
 };
 
 export const AvatarsPic = {
