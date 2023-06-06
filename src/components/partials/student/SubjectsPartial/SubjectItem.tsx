@@ -117,8 +117,8 @@ export const SubjectItem = (props: SubjectItemProp) => {
               className="btn btn-success btn-lg gamphy-secondbg"
             >
               {userSubject.completedChallengeCodes.length > 0
-                ? "Continue Subject"
-                : "Start Subject"}
+                ? "Lanjutkan Materi"
+                : "Mulai Mater"}
             </Link>
           </div>
         </div>

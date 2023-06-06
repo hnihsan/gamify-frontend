@@ -30,7 +30,11 @@ const Subjects = ({ userId, onNavigateFn }: SubjectProp) => {
     new MetadataModel({})
   );
   const [isDataReady, setIsDataReady] = useState<boolean>(false);
+  const [isLeaderboardReady, setIsLeaderboardReady] = useState<boolean>(false);
+  const [isProgressReady, setIsProgressReady] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [loadingLeaderboard, setLoadingLeaderboard] = useState<boolean>(true);
+  const [loadingProgress, setLoadingProgress] = useState<boolean>(true);
   const [showIntro, setShowIntro] = useState<boolean>(true);
   const getPopupStatus = () => Cookies.get("popupWelcome") == "true";
   const dontShowIntro = () => {
@@ -42,17 +46,6 @@ const Subjects = ({ userId, onNavigateFn }: SubjectProp) => {
     onNavigateFn();
     const fetchUserSubjects = async () => {
       let uss = await getUserSubjects(userId);
-      let meta = await getMetadata();
-      let email = Cookies.get("email");
-      let u = await getUser(email);
-      let l = await getLeaderboard(5);
-      let r = 0;
-      if (user.isQa) r = 999;
-      else r = await getUserRank(u._id);
-      setUser(u);
-      setRank(r);
-      setLeaderboard(l);
-      setMetadata(meta);
       setUserSubjects(uss);
       setIsDataReady(true);
     };
@@ -61,8 +54,43 @@ const Subjects = ({ userId, onNavigateFn }: SubjectProp) => {
   }, []);
 
   useEffect(() => {
+    const fetchUserProgress = async () => {
+      let email = Cookies.get("email");
+      let u = await getUser(email);
+      setUser(u);
+      let meta = await getMetadata();
+      setMetadata(meta);
+      let r = 0;
+      if (user.isQa) r = 999;
+      else r = await getUserRank(u._id);
+      setRank(r);
+      setIsProgressReady(true);
+    };
+
+    fetchUserProgress();
+  }, []);
+
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      let l = await getLeaderboard(5);
+      setLeaderboard(l);
+      setIsLeaderboardReady(true);
+    };
+
+    fetchLeaderboard();
+  }, []);
+
+  useEffect(() => {
     if (isDataReady) setLoading(false);
   }, [isDataReady]);
+
+  useEffect(() => {
+    if (isLeaderboardReady) setLoadingLeaderboard(false);
+  }, [isLeaderboardReady]);
+
+  useEffect(() => {
+    if (isProgressReady) setLoadingProgress(false);
+  }, [isProgressReady]);
 
   return (
     <div
@@ -104,12 +132,12 @@ const Subjects = ({ userId, onNavigateFn }: SubjectProp) => {
             </div>
           </div>
           <div className="col-xl-4">
-            {loading ? (
+            {loadingProgress ? (
               <></>
             ) : (
               <ProgressComponent user={user} meta={metadata} rank={rank} />
             )}
-            {loading ? (
+            {loadingLeaderboard ? (
               <></>
             ) : (
               <LeaderboardComponent leaderboards={leaderboard} />
