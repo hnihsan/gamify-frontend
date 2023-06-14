@@ -118,7 +118,7 @@ export const SubjectItem = (props: SubjectItemProp) => {
             >
               {userSubject.completedChallengeCodes.length > 0
                 ? "Lanjutkan Materi"
-                : "Mulai Mater"}
+                : "Mulai Materi"}
             </Link>
           </div>
         </div>
