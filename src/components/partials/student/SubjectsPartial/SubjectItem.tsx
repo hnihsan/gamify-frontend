@@ -28,7 +28,7 @@ export const SubjectItem = (props: SubjectItemProp) => {
               {subject.title}
             </span>
             <span className="text-white pt-1 fw-bold fs-6">
-              {subject.creator}
+              {/* {subject.creator} */}
             </span>
           </div>
         </div>
@@ -57,11 +57,11 @@ export const SubjectItem = (props: SubjectItemProp) => {
               ></div>
             </div>
             <div className="d-flex justify-content-between w-100 mt-2 mb-2">
-              <span className="fw-light fs-6 text-white">
+              <span className="fw-light fs-4 text-white">
                 ({userSubject.completedChallengeCodes.length} /{" "}
-                {subject.challengeCount} challenges completed)
+                {subject.challengeCount} challenges selesai)
               </span>
-              <span className="fw-boldest fs-6 text-dark">
+              <span className="fw-boldest fs-4 text-dark">
                 {(
                   (userSubject.completedChallengeCodes.length /
                     subject.challengeCount) *
@@ -74,7 +74,7 @@ export const SubjectItem = (props: SubjectItemProp) => {
           {/*end::Progress*/}
           {subject.achievements.length > 0 ? (
             <>
-              <span className="fs-6 fw-boldest text-gray-800 d-block mb-2">
+              <span className="fs-3 fw-boldest text-gray-800 d-block mb-2">
                 Achievements
               </span>
               <div className="symbol-group symbol-hover">
@@ -114,7 +114,7 @@ export const SubjectItem = (props: SubjectItemProp) => {
           <div className="d-flex flex-column mt-3 w-100">
             <Link
               to={`/SubjectDetail/${userSubject._id}`}
-              className="btn btn-success btn-lg gamphy-secondbg"
+              className="btn btn-success btn-lg gamphy-secondbg fs-3"
             >
               {userSubject.completedChallengeCodes.length > 0
                 ? "Lanjutkan Materi"

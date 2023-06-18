@@ -84,7 +84,7 @@ export const ProgressComponent = (props: ProgressParams) => {
         </div>
         <div className="row">
           <div className="col-12 text-center">
-            <h3 className="fs-6 mb-4">Level kamu saat ini :</h3>
+            <h3 className="fs-3 mb-4">Level kamu saat ini :</h3>
             <img
               src={ProgressLevelIcon[user.progressLevel]}
               style={{ maxHeight: "100px" }}
@@ -159,11 +159,12 @@ export const ProgressComponent = (props: ProgressParams) => {
                 ></div>
               </div>
             </div>
-            <h3 className="fs-4 fw-lighter text-white">
-              ({((user.points / meta.maxPoints) * 100).toFixed(0)}% Completion)
+            <h3 className="fs-2 fw-lighter text-white">
+              ({((user.points / meta.maxPoints) * 100).toFixed(0)}%
+              Penyelesaian)
             </h3>
             {user.points == meta.maxPoints ? (
-              <h3 className="fs-4 fw-lighter">
+              <h3 className="fs-3 fw-lighter">
                 Kamu sudah mencapai&nbsp;
                 <span className="gamphy-maintext fw-bolder">
                   poin maksimal!

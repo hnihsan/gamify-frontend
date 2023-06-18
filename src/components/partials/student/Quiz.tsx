@@ -260,10 +260,11 @@ const Quizzes = ({ onNavigateFn }: Props) => {
                             <div className="col-md-6 col-sm-12">
                               <div className="card">
                                 <div className="card-body overflow-auto quiz-question-pane">
-                                  <div className="fs-5 fw-bolder">
+                                  <div className="fs-2 fw-bolder">
                                     Soal No. {qindex + 1}
                                   </div>
                                   <div
+                                    className="fs-2"
                                     dangerouslySetInnerHTML={{
                                       __html: q.question,
                                     }}
@@ -307,6 +308,7 @@ const Quizzes = ({ onNavigateFn }: Props) => {
                                               {/*begin::Price*/}
                                               <div className="ms-5">
                                                 <div
+                                                  className="fs-2"
                                                   dangerouslySetInnerHTML={{
                                                     __html: op.content,
                                                   }}

@@ -102,7 +102,7 @@ const Subjects = ({ userId, onNavigateFn }: SubjectProp) => {
         {/* begin section header */}
         <div className="my-2">
           <h2 className="fs-2hx gamphy-maintext">Daftar Materi</h2>
-          <h2 className="fs-4 fw-lighter">
+          <h2 className="fs-3 fw-lighter">
             Silakan pilih materi yang ingin kamu ikuti
           </h2>
           <hr />
