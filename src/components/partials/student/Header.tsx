@@ -34,6 +34,13 @@ const NavigationBar = (arrayPath: Array<string>) => {
         new NavItem("Profil", arrayPath.join("/")),
       ];
       break;
+    case "Reference":
+      Title = "Referensi";
+      NavItems = [
+        new NavItem("Beranda", "/"),
+        new NavItem("Referensi", arrayPath.join("/")),
+      ];
+      break;
     case "SubjectDetail":
       Title = "Detail Materi";
       NavItems = [

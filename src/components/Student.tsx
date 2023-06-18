@@ -13,6 +13,7 @@ import unj from "~/src/assets/icons/footer/unj.png"; // @ts-ignore
 import kemendikbud from "~/src/assets/icons/footer/kemendikbud.png"; // @ts-ignore
 import merdeka from "~/src/assets/icons/footer/merdeka.png"; // @ts-ignore
 import leaderboard_frame from "~/src/assets/icons/leaderboard/leaderboard_frame.png";
+import Reference from "./partials/student/Reference";
 
 const Student: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
@@ -78,6 +79,17 @@ const Student: React.FC = () => {
                     path="/Profile"
                     element={
                       <Profile
+                        onNavigateFn={() => {
+                          setNavigateCount(navigateCount + 1);
+                          setIsNavOpen(false);
+                        }}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/Reference"
+                    element={
+                      <Reference
                         onNavigateFn={() => {
                           setNavigateCount(navigateCount + 1);
                           setIsNavOpen(false);

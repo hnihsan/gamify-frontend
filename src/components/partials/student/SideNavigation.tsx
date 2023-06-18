@@ -87,6 +87,31 @@ const StudentSideNav = ({ isNavDisplayed, activePage }: sideNavProps) => {
                   <span className="menu-title">Profil</span>
                 </Link>
               </div>
+              <div className="menu-item">
+                <Link
+                  className={
+                    "menu-link " + (activePage == "Reference" ? "active" : "")
+                  }
+                  to="/Reference"
+                >
+                  <span className="menu-bullet">
+                    <span className="bullet bullet-dot"></span>
+                  </span>
+                  <span className="menu-title">Referensi</span>
+                </Link>
+              </div>
+              <div className="menu-item">
+                <a
+                  className="menu-link"
+                  href="https://gamify-backend.vercel.app/BUKU-PANDUAN-GAMPHY-LEARNING.pdf"
+                  target="_blank"
+                >
+                  <span className="menu-bullet">
+                    <span className="bullet bullet-dot"></span>
+                  </span>
+                  <span className="menu-title">Buku Panduan</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
