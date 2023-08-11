@@ -15,6 +15,11 @@ const StudentSideNav = ({ isNavDisplayed, activePage }: sideNavProps) => {
     new LoggedInModel(Cookies.get())
   );
 
+  const getIsAdmin = () => {
+    var str = Cookies.get("5fdedfe381eef204ab3354d244885a40");
+    return str == "cebf9416c97f4808312f215c569c73c4";
+  };
+
   const signOut = () => {
     Cookies.remove("userId");
     Cookies.remove("email");
@@ -87,6 +92,26 @@ const StudentSideNav = ({ isNavDisplayed, activePage }: sideNavProps) => {
                   <span className="menu-title">Profil</span>
                 </Link>
               </div>
+
+              {getIsAdmin() ? (
+                <div className="menu-item">
+                  <Link
+                    className={
+                      "menu-link " +
+                      (activePage == "StudentReport" ? "active" : "")
+                    }
+                    to="/StudentReport"
+                  >
+                    <span className="menu-bullet">
+                      <span className="bullet bullet-dot"></span>
+                    </span>
+                    <span className="menu-title">Laporan Nilai Siswa</span>
+                  </Link>
+                </div>
+              ) : (
+                <></>
+              )}
+
               <div className="menu-item">
                 <Link
                   className={

@@ -14,6 +14,7 @@ import kemendikbud from "~/src/assets/icons/footer/kemendikbud.png"; // @ts-igno
 import merdeka from "~/src/assets/icons/footer/merdeka.png"; // @ts-ignore
 import leaderboard_frame from "~/src/assets/icons/leaderboard/leaderboard_frame.png";
 import Reference from "./partials/student/Reference";
+import StudentReports from "./partials/student/StudentReports";
 
 const Student: React.FC = () => {
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
@@ -23,6 +24,10 @@ const Student: React.FC = () => {
   const [arrayPath, setArrayPath] = useState<Array<string>>(
     window.location.pathname.split("/")
   );
+  const getIsAdmin = () => {
+    var str = Cookies.get("5fdedfe381eef204ab3354d244885a40");
+    return str == "cebf9416c97f4808312f215c569c73c4";
+  };
 
   useEffect(() => {
     if (getUserId() == undefined) {
@@ -113,6 +118,20 @@ const Student: React.FC = () => {
                       />
                     }
                   />
+                  {getIsAdmin() ? (
+                    <Route
+                      path="/StudentReport"
+                      element={
+                        <StudentReports
+                          onNavigateFn={() =>
+                            setNavigateCount(navigateCount + 1)
+                          }
+                        />
+                      }
+                    />
+                  ) : (
+                    <></>
+                  )}
                 </>
               ) : (
                 <></>

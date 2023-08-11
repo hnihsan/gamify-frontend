@@ -37,7 +37,7 @@ const Profile = ({ onNavigateFn }: ProfileParams) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [popup, setPopup] = useState<boolean>(false);
-
+  const ProgressArray = ["LEVEL_1", "LEVEL_2", "LEVEL_3", "LEVEL_4"];
   const SubmitUpdate = async () => {
     var updateModel = new UpdateUserModel({
       nickname: nickname,
@@ -159,52 +159,51 @@ const Profile = ({ onNavigateFn }: ProfileParams) => {
                         src={leaderboard_frame}
                         style={{ maxWidth: "100%", height: "auto" }}
                       />
-                      {["LEVEL_1", "LEVEL_2", "LEVEL_3", "LEVEL_4"].map(
-                        (level, idx) => (
-                          <div key={idx}>
-                            <h3 className="fs-2 fw-lighter">
-                              Syarat Level :&nbsp;
-                              <img
-                                src={ProgressLevelIcon[level]}
-                                style={{ maxHeight: "50px" }}
-                              />
-                              <span className="fw-bolder gamphy-secondtext-light">
-                                &nbsp;{ProgressLevelTitle[level]}
-                              </span>
-                            </h3>
-                            <div className="row justify-content-center">
-                              {FramesSelection.filter(
-                                (item) => item.level == level
-                              ).map((frame, idx) => (
+                      {ProgressArray.map((level, idx) => (
+                        <div key={idx}>
+                          <h3 className="fs-2 fw-lighter">
+                            Syarat Level :&nbsp;
+                            <img
+                              src={ProgressLevelIcon[level]}
+                              style={{ maxHeight: "50px" }}
+                            />
+                            <span className="fw-bolder gamphy-secondtext-light">
+                              &nbsp;{ProgressLevelTitle[level]}
+                            </span>
+                          </h3>
+                          <div className="row justify-content-center">
+                            {FramesSelection.filter(
+                              (item) => item.level == level
+                            ).map((frame, idx) => (
+                              <div
+                                key={idx}
+                                className="col-4 col-md-1 p-2 p-relative"
+                              >
+                                {ProgressArray.indexOf(user.progressLevel) >=
+                                ProgressArray.indexOf(level) ? (
+                                  <></>
+                                ) : (
+                                  <OverlayBlockingComponent />
+                                )}
                                 <div
-                                  key={idx}
-                                  className="col-4 col-md-1 p-2 p-relative"
+                                  className={
+                                    "bg-barely avatars-selection-border " +
+                                    (frame.code == frameCode ? "active" : "")
+                                  }
+                                  onClick={() => setFrameCode(frame.code)}
                                 >
-                                  {user.progressLevel != level ? (
-                                    <OverlayBlockingComponent />
-                                  ) : (
-                                    <></>
-                                  )}
-                                  <div
-                                    className={
-                                      "bg-barely avatars-selection-border " +
-                                      (frame.code == frameCode ? "active" : "")
-                                    }
-                                    onClick={() => setFrameCode(frame.code)}
-                                  >
-                                    <img
-                                      src={frame.src}
-                                      style={{
-                                        maxWidth: "100%",
-                                      }}
-                                    />
-                                  </div>
+                                  <img
+                                    src={frame.src}
+                                    style={{
+                                      maxWidth: "100%",
+                                    }}
+                                  />
                                 </div>
-                              ))}
-                            </div>
+                              </div>
+                            ))}
                           </div>
-                        )
-                      )}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
