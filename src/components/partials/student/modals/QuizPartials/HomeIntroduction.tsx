@@ -34,7 +34,7 @@ export const HomeIntroductionModal = ({
                 Your browser does not support the video tag.
               </video>
               <p className="fs-4 fw-lighter my-2">
-                Gamphy Learning adalah sebuah platform gamifikasi yang berisi
+                Gamphy Learning adalah sebuah platform game edukatif yang berisi
                 materi Gerak Lurus fisika tingkat SMA. Platform ini berisi
                 rangkuman materi dan beberapa latihan soal berupa challenge
                 dengan sistem level.
