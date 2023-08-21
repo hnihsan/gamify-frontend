@@ -44,7 +44,7 @@ export const HomeIntroductionModal = ({
                 Gamphy Learning dengan klik tombol di bawah ini.
               </p>
               <a
-                href="bit.ly/GamphyLearningPanduan"
+                href="https://bit.ly/GamphyLearningPanduan"
                 target="_blank"
                 className="btn btn-lg btn-primary"
               >
